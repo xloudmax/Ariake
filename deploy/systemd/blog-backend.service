@@ -1,0 +1,64 @@
+[Unit]
+Description=Ariake Backend (Go)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/blog/apps/backend
+
+# Production environment + secrets via EnvironmentFile (chmod 600)
+Environment="GIN_MODE=release"
+EnvironmentFile=-/var/www/blog/apps/backend/.env
+
+ExecStart=/var/www/blog/apps/backend/bin/server
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=always
+RestartSec=10s
+TimeoutStopSec=30s
+
+# ----------------- Hardening -----------------
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectKernelLogs=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=false  # Go's runtime needs RWX for some GC paths
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Writable paths (everything else is read-only because of ProtectSystem=strict)
+ReadWritePaths=/var/www/blog/apps/backend/uploads
+ReadWritePaths=/var/www/blog/apps/backend/logs
+ReadWritePaths=/var/www/blog/apps/backend/data
+ReadWritePaths=/tmp
+
+# ----------------- Logging -----------------
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=blog-backend
+
+# ----------------- Resource limits -----------------
+LimitNOFILE=65536
+LimitNPROC=4096
+MemoryMax=2G
+TasksMax=2048
+
+[Install]
+WantedBy=multi-user.target

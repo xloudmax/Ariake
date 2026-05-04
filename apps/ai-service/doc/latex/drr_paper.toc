@@ -1,0 +1,29 @@
+\contentsline {section}{\numberline {1}引言}{1}{section.1}%
+\contentsline {section}{\numberline {2}相关工作}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}GraphRAG 与结构化检索}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}仿生创新与类比迁移}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}自主科研智能体}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}平台设计与实现}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}系统总体架构}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}全栈平台分层}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}机制树与知识图检索}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}批评精炼链路}{3}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}平台工作流闭环}{3}{subsection.3.5}%
+\contentsline {section}{\numberline {4}实验设置}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}OpenAlex 语料构建：corpus\_v3}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}主 benchmark}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Advanced Ablation v2}{5}{subsection.4.3}%
+\contentsline {section}{\numberline {5}结果与分析}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}主 benchmark 结果}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Advanced Ablation v2 结果}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}案例分析：Q2 集水问题}{6}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}语料质量对平台表现的影响}{7}{subsection.5.4}%
+\contentsline {section}{\numberline {6}讨论}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}从算法到平台的意义}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}为什么 DRR\_Final 有效}{8}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}为什么 DRR\_Draft 偏弱}{8}{subsection.6.3}%
+\contentsline {section}{\numberline {7}结论}{9}{section.7}%
+\contentsline {section}{参考文献}{10}{section.7}%
+\contentsline {section}{\numberline {A}paper-core benchmark 说明}{10}{appendix.A}%
+\contentsline {section}{\numberline {B}评估提示词摘录}{12}{appendix.B}%
+\contentsline {section}{致谢}{13}{lstnumber.2.5}%

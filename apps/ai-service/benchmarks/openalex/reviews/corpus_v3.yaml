@@ -1,0 +1,192 @@
+version: corpus_v3
+packs:
+  lightweight_structures:
+    dedupe_by_normalized_title: true
+    notes: >
+      Dedupe duplicate records and keep lightweight-structure papers centered on
+      transferable structural mechanics rather than placeholder duplicates.
+
+  water_harvesting_desalination:
+    dedupe_by_normalized_title: true
+    notes: >
+      Remove companion files, extracted figure placeholders, and similar non-paper
+      records so water harvesting remains grounded in mechanism and fabrication papers.
+    exclude_title_patterns:
+      - supplementary material from
+      - hydrophobic_rectangle from
+      - data from
+    exclude_keywords:
+      - supplementary material
+      - hydrophobic_rectangle
+
+  reversible_adhesion:
+    dedupe_by_normalized_title: true
+    notes: >
+      Keep mechanism-rich adhesion papers and dedupe alternate records with the same title.
+
+  self_cleaning_antifouling:
+    dedupe_by_normalized_title: true
+    notes: >
+      Remove placeholder/local-language companion records and keep mechanism-rich
+      self-cleaning and anti-fouling surfaces.
+    exclude_title_patterns:
+      - 本文
+    exclude_keywords:
+      - 本文
+
+  thermal_regulation_passive_cooling:
+    dedupe_by_normalized_title: true
+    notes: >
+      Push thermal further toward biological heat exchange, insulation, and passive
+      cooling mechanisms while pruning climate/ecology side paths and companion records.
+    exclude_ids:
+      - https://openalex.org/W4413421236
+    exclude_title_patterns:
+      - desalination
+      - evaporator
+      - water and energy sustainability
+      - atmospheric stabilization
+      - martian
+      - shark spiral valve geometry
+      - maternal care
+      - social behavior
+      - open journal
+      - comment on
+      - reply on
+      - plant science
+      - climate warming
+      - rapid environmental change
+      - increased land use
+      - ringed seals
+      - methane fluxes
+      - carbon dioxide
+      - phlebotomus
+      - efficacy of
+      - fluxes from mounds
+      - metafabric
+      - supplementary material from
+      - data from
+      - beyond the ridge
+      - behavioural thermoregulation
+      - mapeamento do perfil térmico
+      - lift production in the hovering hummingbird
+      - cetacean loss of the master adipose tissue regulator
+    exclude_keywords:
+      - desalination
+      - water sustainability
+      - wastewater
+      - martian
+      - atmospheric stabilization
+      - phenolic resin
+      - solar steam
+      - maternal care
+      - neonat
+      - social behavior
+      - comment on
+      - reply on
+      - ringed seals
+      - climate warming
+      - increased land use
+      - carbon dioxide
+      - methane
+      - phlebotomus
+      - fungus-growing termites
+      - metafabric
+      - behavioural thermoregulation
+      - maternal care
+      - social behavior
+
+  drag_reduction_flow_control:
+    dedupe_by_normalized_title: true
+    notes: >
+      Remove clearly off-domain aerospace vehicle routing/noise placeholders while
+      retaining riblet, compliant-surface, and mechanism-rich flow-control papers.
+    exclude_title_patterns:
+      - uav
+    exclude_keywords:
+      - uav
+
+  impact_protection_energy_dissipation:
+    dedupe_by_normalized_title: true
+    notes: >
+      Remove supplementary/data companion entries and keep impact and damping papers
+      tied to transferable energy absorption mechanisms.
+    exclude_title_patterns:
+      - supplementary material from
+      - data from
+      - battery fire
+    exclude_keywords:
+      - supplementary material
+      - battery fire
+
+  swarm_distributed_optimization:
+    dedupe_by_normalized_title: true
+    notes: >
+      Keep stigmergy, path formation, robot-swarm coordination, and transport-network
+      mechanism papers while removing generic optimization, vehicular, IoT, and dataset noise.
+    exclude_title_patterns:
+      - representative swarm intelligence algorithms
+      - flexible job shop scheduling
+      - northern goshawk optimization
+      - grasshopper optimization
+      - uav
+      - wireless sensor network
+      - economics of labour
+      - federated learning
+      - mobile edge
+      - edge intelligence
+      - dataset
+      - teaching
+      - traffic management
+      - admm
+      - matching theory
+      - post-scarcity
+      - mobile cloud computing
+      - green vehicle paths
+      - auction-based task allocation
+      - load balancing in leo
+      - wireless resource allocations
+      - traffic routing
+      - connected vehicles
+      - next generation network
+      - internet of things
+      - waste collection vehicle routing
+      - supplementary material from
+      - data from
+      - ai swarm intelligence
+      - decentralized multi-agent ai systems
+      - collective human behavior
+      - industrial metabolism
+      - collective intelligence as geometric projection
+    exclude_keywords:
+      - metaheuristic
+      - scheduling
+      - job shop
+      - uav
+      - wireless sensor network
+      - wsn
+      - vehicular ad hoc network
+      - intrusion detection
+      - blockchain
+      - federated learning
+      - mobile edge
+      - edge intelligence
+      - teaching
+      - education
+      - post-scarcity
+      - mobile cloud
+      - admm
+      - matching theory
+      - real-time traffic management
+      - municipal solid waste
+      - graph neural networks
+      - wireless resource allocations
+      - connected vehicles
+      - next generation network
+      - internet of things
+      - vehicle routing problem
+      - waste collection
+      - supplementary material
+      - ai systems
+      - human behavior
+      - industrial metabolism

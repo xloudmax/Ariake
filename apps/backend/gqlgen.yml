@@ -1,0 +1,34 @@
+# gqlgen.yml
+schema:
+  - graph/schema.graphql      # 你的 SDL 文件路径
+
+exec:
+  filename: graph/generated.go  # 生成的执行代码放在 graph/generated.go
+  package: graph                # 上面文件里声明的 package
+
+model:
+  filename: graph/models_gen.go  # 生成的模型（model）代码放在这里
+  package: graph                # 同样，包名为 graph
+
+resolver:
+  layout: follow-schema         # 默认即可：把 resolver 代码也放在 graph/
+  dir: graph                    # resolver.go 就在 graph/ 目录下
+  package: graph                # resolver.go 声明的 package
+
+models:
+  User:
+    fields:
+      posts:
+        resolver: true
+      postsCount:
+        resolver: true
+  BlogPost:
+    fields:
+      author:
+        resolver: true
+      stats:
+        resolver: true
+      versions:
+        resolver: true
+  MechanismNode:
+    model: repair-platform/models.MechanismNode

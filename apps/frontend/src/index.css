@@ -1,0 +1,152 @@
+/* 导入变量 */
+@import './styles/design-system.css';
+@import './styles/simple-theme.css';
+
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--color-bg);
+    background-image: radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+}
+
+@layer components {
+  /* 现代卡片 */
+  .modern-card-hover {
+    @apply transition-all duration-300 border border-[var(--color-border)];
+  }
+  .modern-card-hover:hover {
+    @apply -translate-y-1 shadow-2xl border-[var(--color-primary)];
+  }
+
+  /* 统一的毛玻璃卡片 */
+  .glassy-card {
+    @apply bg-white/55 dark:bg-slate-950/42 border border-white/35 dark:border-white/10;
+    backdrop-filter: blur(18px) saturate(155%);
+    -webkit-backdrop-filter: blur(18px) saturate(155%);
+    box-shadow: 0 18px 42px -26px rgba(15, 23, 42, 0.32);
+  }
+
+  .auth-mode-tabs .ant-tabs-nav,
+  .auth-flow-steps {
+    @apply rounded-2xl border border-[color:var(--surface-border)] bg-[color:var(--surface-elevated-glass)] px-3 py-2;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 40px -26px rgba(15, 23, 42, 0.18);
+  }
+
+  .auth-mode-tabs .ant-tabs-nav::before {
+    border-bottom: none !important;
+  }
+
+  .auth-mode-tabs .ant-tabs-tab {
+    @apply rounded-full px-4 py-2 transition-colors duration-200;
+  }
+
+  .auth-mode-tabs .ant-tabs-tab.ant-tabs-tab-active {
+    background: color-mix(in srgb, var(--color-primary-soft) 24%, transparent);
+  }
+
+  .auth-mode-tabs .ant-tabs-ink-bar {
+    height: 3px;
+    border-radius: 999px;
+  }
+
+  .auth-flow-steps .ant-steps-item-title,
+  .auth-flow-steps .ant-steps-item-description,
+  .auth-flow-steps .ant-steps-item-icon {
+    color: var(--surface-text) !important;
+  }
+
+  .auth-flow-steps .ant-steps-item-wait .ant-steps-item-icon,
+  .auth-flow-steps .ant-steps-item-process .ant-steps-item-icon {
+    background: var(--surface-elevated) !important;
+    border-color: var(--surface-border) !important;
+  }
+
+  .auth-flow-steps .ant-steps-item-finish .ant-steps-item-icon {
+    background: color-mix(in srgb, var(--color-primary-soft) 24%, transparent) !important;
+    border-color: var(--color-primary) !important;
+  }
+
+  .auth-feedback-alert {
+    @apply rounded-2xl border backdrop-blur-xl;
+    box-shadow: 0 18px 40px -26px rgba(15, 23, 42, 0.16);
+  }
+
+  .auth-feedback-alert.ant-alert-error,
+  .auth-feedback-alert-error {
+    background: color-mix(in srgb, var(--color-error-soft) 18%, var(--surface-elevated-glass)) !important;
+    border-color: color-mix(in srgb, var(--color-error-soft) 60%, var(--surface-border)) !important;
+  }
+
+  .auth-feedback-alert.ant-alert-success,
+  .auth-feedback-alert-success {
+    background: color-mix(in srgb, var(--color-success-soft) 18%, var(--surface-elevated-glass)) !important;
+    border-color: color-mix(in srgb, var(--color-success-soft) 60%, var(--surface-border)) !important;
+  }
+
+  /* 动画 */
+  .page-enter-active {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  /* 适配 iOS 安全区域，防止通知遮挡灵动岛/状态栏 */
+  .ant-notification, .ant-message {
+    margin-top: env(safe-area-inset-top, 0) !important;
+  }
+}
+
+@layer utilities {
+  /* 滚动条 */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-secondary);
+    border-radius: 3px;
+  }
+
+  /* 强制性的 AntD 重置逻辑 - 仅在必要时使用 */
+  .antd-reset-focus :where(.ant-btn, .ant-input, .ant-select):focus {
+    @apply outline-none ring-0 !shadow-none;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  50% { transform: translateX(100%) skewX(-15deg); }
+  100% { transform: translateX(100%) skewX(-15deg); }
+}
+
+.animate-shine {
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+/* 强力透明与可见性补丁 - 确保 iOS WebView 成功显示 */
+html, body, #root {
+  background-color: transparent !important;
+  min-height: 100vh;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  position: relative;
+  z-index: 10;
+}

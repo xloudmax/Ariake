@@ -1,0 +1,186 @@
+# Comment Operations
+query Comments($blogPostId: ID!, $limit: Int, $offset: Int, $filter: CommentFilterInput, $sort: CommentSortInput) {
+  comments(blogPostId: $blogPostId, limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
+    comments {
+      id
+      content
+      isApproved
+      likeCount
+      reportCount
+      createdAt
+      updatedAt
+      user {
+        id
+        username
+        avatar
+      }
+      parent {
+        id
+        content
+        user {
+          id
+          username
+          avatar
+        }
+        createdAt
+      }
+      replies {
+        id
+        content
+        isApproved
+        likeCount
+        reportCount
+        createdAt
+        updatedAt
+        user {
+          id
+          username
+          avatar
+        }
+      }
+      blogPost {
+        id
+        title
+        slug
+      }
+    }
+    total
+  }
+}
+
+query Comment($id: ID!) {
+  comment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+    parent {
+      id
+      content
+      user {
+        id
+        username
+        avatar
+      }
+      createdAt
+    }
+    replies {
+      id
+      content
+      isApproved
+      likeCount
+      reportCount
+      createdAt
+      updatedAt
+      user {
+        id
+        username
+        avatar
+      }
+    }
+    blogPost {
+      id
+      title
+      slug
+    }
+  }
+}
+
+mutation CreateComment($input: CreateCommentInput!) {
+  createComment(input: $input) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation UpdateComment($id: ID!, $input: UpdateCommentInput!) {
+  updateComment(id: $id, input: $input) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation DeleteComment($id: ID!) {
+  deleteComment(id: $id) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation LikeComment($id: ID!) {
+  likeComment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation UnlikeComment($id: ID!) {
+  unlikeComment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation ReportComment($id: ID!) {
+  reportComment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}

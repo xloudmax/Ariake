@@ -1,0 +1,160 @@
+/* TableOfContents.css */
+
+/* TOC 侧边栏容器 - 使用 sticky 定位 */
+.toc-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  /* 让 sidebar 自身 sticky */
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  z-index: 100;
+}
+
+/* Webkit 浏览器滚动条样式 */
+.toc-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* TOC sticky 定位容器 - 简化为普通容器 */
+.toc-sticky {
+  padding: 1rem 0.5rem;
+  pointer-events: auto;
+}
+
+/* TOC 容器 */
+.toc-container {
+  width: 100%;
+  pointer-events: auto;
+}
+
+/* TOC 标题 */
+.toc-header {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  opacity: 0.8;
+}
+
+/* TOC 列表样式 */
+.toc-list,
+.toc-list-child {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.toc-list-child {
+  padding-left: 16px;
+  margin-top: 2px;
+}
+
+/* TOC 项样式 */
+.toc-item,
+.toc-item-child {
+  margin: 0;
+  padding: 2px 0;
+  pointer-events: auto;
+}
+
+/* TOC 链接样式 - 亮色主题 */
+.toc-link {
+  display: block;
+  color: var(--surface-text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.toc-link:hover {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary-soft) 18%, transparent);
+  padding-left: 12px;
+  transform: translateX(2px);
+}
+
+.toc-link:active {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary-soft) 28%, transparent);
+}
+
+/* 当前激活的链接 */
+.toc-link.active {
+  color: var(--color-primary);
+  font-weight: 500;
+  background-color: color-mix(in srgb, var(--color-primary-soft) 22%, transparent);
+}
+
+/* TOC 链接样式 - 深色主题 */
+html.dark .toc-link {
+  color: var(--surface-text-muted);
+}
+
+html.dark .toc-link:hover {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary-soft) 18%, transparent);
+}
+
+html.dark .toc-link:active {
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary-soft) 28%, transparent);
+}
+
+html.dark .toc-link.active {
+  color: var(--color-primary);
+  font-weight: 500;
+  background-color: color-mix(in srgb, var(--color-primary-soft) 22%, transparent);
+}
+
+html.dark .toc-header {
+  color: var(--color-text);
+  border-bottom-color: var(--color-border);
+}
+
+/* 响应式设计：在小屏幕上隐藏 TOC */
+@media (max-width: 1200px) {
+  .toc-sidebar {
+    display: none;
+  }
+}
+
+/* 添加平滑滚动到整个文档 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 为目标元素添加滚动偏移（考虑固定头部） */
+:target {
+  scroll-margin-top: 100px;
+}

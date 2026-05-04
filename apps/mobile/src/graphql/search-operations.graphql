@@ -1,0 +1,59 @@
+# Search Operations
+query SearchPosts($query: String!, $limit: Int, $offset: Int) {
+  searchPosts(query: $query, limit: $limit, offset: $offset) {
+    posts {
+      ...BlogPostSummary
+    }
+    total
+    took
+  }
+}
+
+query EnhancedSearch($input: SearchInput!) {
+  enhancedSearch(input: $input) {
+    posts {
+      ...BlogPostSummary
+    }
+    total
+    took
+    suggestions
+    facets {
+      tags {
+        value
+        count
+      }
+      categories {
+        value
+        count
+      }
+      authors {
+        value
+        count
+      }
+    }
+  }
+}
+
+query SearchSuggestions($query: String!, $limit: Int) {
+  getSearchSuggestions(query: $query, limit: $limit)
+}
+
+query TrendingSearches($limit: Int) {
+  getTrendingSearches(limit: $limit)
+}
+
+query SearchStats {
+  getSearchStats {
+    totalSearches
+    popularQueries {
+      query
+      count
+      lastSearched
+    }
+    searchTrends {
+      date
+      searchCount
+      topQueries
+    }
+  }
+}

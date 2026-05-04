@@ -1,0 +1,18 @@
+/var/log/blog-backend.log
+/var/log/blog-ai-service.log
+/var/www/blog/apps/backend/logs/*.log
+/var/www/blog/apps/ai-service/logs/*.log
+{
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+    create 0640 www-data www-data
+    sharedscripts
+    postrotate
+        # journalctl handles its own rotation; this only covers app-side log files.
+    endscript
+}

@@ -1,0 +1,855 @@
+/* MarkdownViewer.css - 修复昼夜切换时的背景色问题 */
+
+/* 亮色模式下的样式 */
+.markdown-viewer-card {
+  background-color: #ffffff;
+}
+
+html.light .markdown-viewer-card,
+html:not(.dark) .markdown-viewer-card {
+  background-color: #ffffff;
+}
+
+/* 亮色模式下的 markdown 内容样式 */
+.markdown-body,
+html.light .markdown-body,
+html:not(.dark) .markdown-body {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  color-scheme: light;
+}
+
+/* 亮色模式下的代码块样式 */
+html.light .markdown-body code,
+html:not(.dark) .markdown-body code {
+  background-color: #f3f4f6 !important;
+  color: #1f2937;
+}
+
+html.light .markdown-body pre,
+html:not(.dark) .markdown-body pre {
+  background-color: #f8f9fa !important;
+  color: #1f2937;
+}
+
+/* 亮色模式下的表格样式 */
+html.light .markdown-body table,
+html:not(.dark) .markdown-body table {
+  background-color: #ffffff !important;
+  border-color: #d0d7de !important;
+}
+
+html.light .markdown-body th,
+html:not(.dark) .markdown-body th {
+  background-color: #f6f8fa !important;
+  color: #1f2937 !important;
+  border-color: #d0d7de !important;
+}
+
+html.light .markdown-body td,
+html:not(.dark) .markdown-body td {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border-color: #d0d7de !important;
+}
+
+html.light .markdown-body tr,
+html:not(.dark) .markdown-body tr {
+  background-color: #ffffff !important;
+  border-color: #d0d7de !important;
+}
+
+html.light .markdown-body tr:nth-child(2n),
+html:not(.dark) .markdown-body tr:nth-child(2n) {
+  background-color: #f6f8fa !important;
+}
+
+/* 亮色模式下的链接样式 */
+html.light .markdown-body a,
+html:not(.dark) .markdown-body a {
+  color: #0969da !important;
+  text-decoration: none;
+}
+
+html.light .markdown-body a:hover,
+html:not(.dark) .markdown-body a:hover {
+  text-decoration: underline;
+}
+
+/* 亮色模式下的引用块样式 */
+html.light .markdown-body blockquote,
+html:not(.dark) .markdown-body blockquote {
+  background-color: transparent !important;
+  border-left-color: #d0d7de !important;
+  color: #656d76 !important;
+}
+
+/* 亮色模式下的分割线样式 */
+html.light .markdown-body hr,
+html:not(.dark) .markdown-body hr {
+  background-color: #d0d7de !important;
+  border-color: #d0d7de !important;
+}
+
+/* 亮色模式下的标题样式 */
+html.light .markdown-body h1,
+html.light .markdown-body h2,
+html.light .markdown-body h3,
+html.light .markdown-body h4,
+html.light .markdown-body h5,
+html.light .markdown-body h6,
+html:not(.dark) .markdown-body h1,
+html:not(.dark) .markdown-body h2,
+html:not(.dark) .markdown-body h3,
+html:not(.dark) .markdown-body h4,
+html:not(.dark) .markdown-body h5,
+html:not(.dark) .markdown-body h6 {
+  color: #1f2937 !important;
+  border-bottom-color: #d0d7de !important;
+}
+
+/* 亮色模式下的列表样式 */
+html.light .markdown-body ul,
+html.light .markdown-body ol,
+html:not(.dark) .markdown-body ul,
+html:not(.dark) .markdown-body ol {
+  color: #1f2937 !important;
+}
+
+html.light .markdown-body li,
+html:not(.dark) .markdown-body li {
+  color: #1f2937 !important;
+}
+
+/* 深色模式下的样式 */
+html.dark .markdown-viewer-card {
+  background-color: var(--color-bg-secondary) !important;
+  border-color: var(--color-bg-secondary) !important;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* 确保 markdown 内容在深色模式下也有合适的背景 */
+html.dark .markdown-body {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  color-scheme: dark;
+  --focus-outlineColor: var(--color-primary);
+  --fgColor-default: var(--color-text);
+  --fgColor-muted: var(--color-text-secondary);
+  --fgColor-accent: var(--color-primary);
+  --fgColor-success: #3fb950;
+  --fgColor-attention: #d29922;
+  --fgColor-danger: #f85149;
+  --fgColor-done: #ab7df8;
+  --bgColor-default: var(--color-bg-secondary);
+  --bgColor-muted: var(--color-bg-secondary);
+  --bgColor-neutral-muted: #656c7633;
+  --bgColor-attention-muted: #bb800926;
+  --borderColor-default: var(--color-border);
+  --borderColor-muted: var(--color-border-secondary);
+  --borderColor-neutral-muted: var(--color-border-secondary);
+  --borderColor-accent-emphasis: var(--color-primary);
+  --borderColor-success-emphasis: #238636;
+  --borderColor-attention-emphasis: #9e6a03;
+  --borderColor-danger-emphasis: #da3633;
+  --borderColor-done-emphasis: #8957e5;
+}
+
+/* 确保代码块在深色模式下正确显示 */
+html.dark .markdown-body code {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-text);
+}
+
+html.dark .markdown-body pre {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-text);
+}
+
+/* 确保表格在深色模式下正确显示 */
+html.dark .markdown-body table {
+  background-color: var(--color-bg);
+}
+
+html.dark .markdown-body th {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+
+html.dark .markdown-body td {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+/* 确保引用块在深色模式下正确显示 */
+html.dark .markdown-body blockquote {
+  background-color: var(--color-bg-secondary);
+  border-left-color: var(--color-primary);
+  color: var(--color-text-secondary);
+}
+
+/* 处理段落在深色模式下的样式 */
+html.dark .markdown-body p {
+  color: var(--color-text);
+}
+
+/* 深色模式下的链接样式 */
+html.dark .markdown-body a {
+  color: var(--color-primary) !important;
+  text-decoration: none;
+}
+
+.markdown-body .mermaid-chart {
+  border: 1px solid #d0d7de;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: #ffffff;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+}
+
+.markdown-body .cols-1,
+.markdown-body .cols-2,
+.markdown-body .cols-3,
+.markdown-body .cols-4,
+.markdown-body .cols-5 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .markdown-body .cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .markdown-body .cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .markdown-body .cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .markdown-body .cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .markdown-body .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .markdown-body .col-span-3 {
+    grid-column: span 3 / span 3;
+  }
+
+  .markdown-body .col-span-4 {
+    grid-column: span 4 / span 4;
+  }
+
+  .markdown-body .row-span-1 {
+    grid-row: span 1 / span 1;
+  }
+
+  .markdown-body .row-span-2 {
+    grid-row: span 2 / span 2;
+  }
+
+  .markdown-body .row-span-3 {
+    grid-row: span 3 / span 3;
+  }
+
+  .markdown-body .row-span-4 {
+    grid-row: span 4 / span 4;
+  }
+
+  .markdown-body .row-span-5 {
+    grid-row: span 5 / span 5;
+  }
+
+  .markdown-body .row-span-10 {
+    grid-row: span 10 / span 10;
+  }
+}
+
+.markdown-body .left-align th,
+.markdown-body .left-align td {
+  text-align: left;
+}
+
+.markdown-body .wrap-text,
+.markdown-body .wrap-text code,
+.markdown-body .shortcuts code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.markdown-body .shortcuts td:first-child,
+.markdown-body .shortcuts th:first-child {
+  white-space: nowrap;
+}
+
+.markdown-body .style-round {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.markdown-body .style-none ul,
+.markdown-body ul.style-none {
+  list-style: none;
+  padding-left: 0;
+}
+
+.markdown-body .mermaid-error {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  color: #b42318;
+  white-space: pre-wrap;
+}
+
+html.dark .markdown-body .mermaid-chart {
+  background-color: var(--color-bg-secondary);
+  border-color: var(--color-border);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+html.dark .markdown-body a:hover {
+  color: var(--color-primary) !important;
+  text-decoration: underline;
+}
+
+/* 深色模式下的标题样式 */
+html.dark .markdown-body h1,
+html.dark .markdown-body h2,
+html.dark .markdown-body h3,
+html.dark .markdown-body h4,
+html.dark .markdown-body h5,
+html.dark .markdown-body h6 {
+  color: var(--color-text) !important;
+  border-bottom-color: var(--color-border) !important;
+}
+
+/* 深色模式下的列表样式 */
+html.dark .markdown-body ul,
+html.dark .markdown-body ol {
+  color: var(--color-text) !important;
+}
+
+html.dark .markdown-body li {
+  color: var(--color-text) !important;
+}
+
+/* 深色模式下的分割线样式 */
+html.dark .markdown-body hr {
+  background-color: var(--color-border) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* 深色模式下的表格边框 */
+html.dark .markdown-body table {
+  border-color: var(--color-border) !important;
+}
+
+html.dark .markdown-body tr {
+  border-color: var(--color-border) !important;
+}
+
+html.dark .markdown-body tr:nth-child(2n) {
+  background-color: var(--color-bg-secondary) !important;
+}
+
+/* Mobile specific prose refinements */
+.markdown-body.mobile-prose {
+  font-size: 15px !important;
+  line-height: 1.625 !important;
+}
+
+.markdown-body.mobile-prose p {
+  margin-bottom: 1rem !important;
+}
+
+.markdown-body.mobile-prose h1 { font-size: 1.75em !important; margin-top: 1.5em !important; margin-bottom: 0.75em !important; }
+.markdown-body.mobile-prose h2 { font-size: 1.5em !important; margin-top: 1.25em !important; margin-bottom: 0.5em !important; }
+.markdown-body.mobile-prose h3 { font-size: 1.25em !important; margin-top: 1em !important; margin-bottom: 0.4em !important; }
+
+.markdown-body .insight-xml-card {
+  margin: 1.5rem 0;
+  border-radius: 20px;
+  border: 1px solid var(--surface-border);
+  background: var(--surface-elevated-glass);
+  padding: 1.1rem 1.1rem 1rem;
+  box-shadow: 0 18px 42px -30px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.markdown-body .insight-xml-card--primary {
+  border-color: color-mix(in srgb, var(--color-primary-soft) 58%, var(--surface-border));
+}
+
+.markdown-body .insight-xml-card--success {
+  border-color: color-mix(in srgb, var(--color-success-soft) 58%, var(--surface-border));
+}
+
+.markdown-body .insight-xml-card--warning {
+  border-color: color-mix(in srgb, var(--color-warning-soft, #f59e0b) 58%, var(--surface-border));
+}
+
+.markdown-body .insight-xml-card--neutral {
+  border-color: var(--surface-border);
+}
+
+.markdown-body .insight-xml-header {
+  margin-bottom: 0.85rem;
+}
+
+.markdown-body .insight-xml-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--surface-text-muted);
+}
+
+.markdown-body .insight-xml-verdict {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.55rem;
+  margin-bottom: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.markdown-body .insight-xml-verdict--success {
+  background: color-mix(in srgb, var(--color-success-soft) 20%, transparent);
+  color: var(--color-success);
+}
+
+.markdown-body .insight-xml-verdict--warning {
+  background: color-mix(in srgb, var(--color-warning-soft, #f59e0b) 20%, transparent);
+  color: var(--color-warning, #f59e0b);
+}
+
+.markdown-body .insight-xml-title {
+  margin: 0 !important;
+  border-bottom: none !important;
+  font-size: 1.02rem !important;
+  line-height: 1.3 !important;
+  color: var(--surface-text) !important;
+}
+
+.markdown-body .insight-xml-body > p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .insight-xml-lead {
+  margin-bottom: 0.95rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-primary-soft) 16%, var(--surface-elevated));
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 48%, var(--surface-border));
+  color: var(--surface-text);
+  font-size: 1rem;
+  line-height: 1.75;
+  font-weight: 600;
+}
+
+.markdown-body .insight-xml-details {
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 0.75rem;
+}
+
+.markdown-body .insight-xml-details-summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.markdown-body .insight-xml-details-summary::-webkit-details-marker {
+  display: none;
+}
+
+.markdown-body .insight-xml-details-body {
+  margin-top: 0.85rem;
+}
+
+.markdown-body .insight-xml-bullet-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.markdown-body .insight-xml-bullet-item {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-elevated) 82%, transparent);
+  border: 1px solid var(--surface-border);
+}
+
+.markdown-body .insight-xml-bullet-marker {
+  flex: 0 0 auto;
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.markdown-body .insight-xml-bullet-copy {
+  color: var(--surface-text-secondary);
+  line-height: 1.65;
+}
+
+.markdown-body .insight-xml-action-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.markdown-body .insight-xml-action-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-elevated) 82%, transparent);
+  border: 1px solid var(--surface-border);
+}
+
+.markdown-body .insight-xml-action-index {
+  flex: 0 0 auto;
+  min-width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary-soft) 18%, transparent);
+  color: var(--color-primary);
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.markdown-body .insight-xml-action-copy {
+  flex: 1 1 auto;
+  color: var(--surface-text-secondary);
+  line-height: 1.65;
+}
+
+.markdown-body .insight-xml-action-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.22rem;
+}
+
+.markdown-body .insight-xml-action-heading {
+  font-weight: 700;
+  color: var(--surface-text);
+}
+
+.markdown-body .insight-xml-action-priority {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary-soft) 46%, var(--surface-border));
+  background: color-mix(in srgb, var(--color-primary-soft) 16%, transparent);
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.markdown-body .insight-xml-action-lane {
+  margin-bottom: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--surface-text-muted);
+}
+
+.markdown-body .insight-xml-action-detail {
+  color: var(--surface-text-secondary);
+}
+
+.markdown-body .insight-xml-diagnostic-status {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 0.8rem;
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--surface-border);
+  background: color-mix(in srgb, var(--surface-elevated) 88%, transparent);
+}
+
+.markdown-body .insight-xml-diagnostic-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.markdown-body .insight-xml-diagnostic-status--success {
+  border-color: color-mix(in srgb, var(--color-success-soft) 54%, var(--surface-border));
+  background: color-mix(in srgb, var(--color-success-soft) 12%, var(--surface-elevated));
+}
+
+.markdown-body .insight-xml-diagnostic-status--warning {
+  border-color: color-mix(in srgb, var(--color-warning-soft, #f59e0b) 54%, var(--surface-border));
+  background: color-mix(in srgb, var(--color-warning-soft, #f59e0b) 12%, var(--surface-elevated));
+}
+
+.markdown-body .insight-xml-diagnostic-status-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--surface-text);
+}
+
+.markdown-body .insight-xml-diagnostic-status-tone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--surface-text);
+  background: color-mix(in srgb, var(--surface-elevated) 68%, transparent);
+}
+
+.markdown-body .insight-xml-diagnostic-status--success .insight-xml-diagnostic-status-tone {
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success-soft) 16%, transparent);
+}
+
+.markdown-body .insight-xml-diagnostic-status--warning .insight-xml-diagnostic-status-tone {
+  color: var(--color-warning, #f59e0b);
+  background: color-mix(in srgb, var(--color-warning-soft, #f59e0b) 16%, transparent);
+}
+
+.markdown-body .insight-xml-diagnostic-status-copy {
+  color: var(--surface-text-secondary);
+  line-height: 1.55;
+}
+
+.markdown-body .insight-xml-diagnostic-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.markdown-body .insight-xml-diagnostic-item {
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 0.85rem 0.95rem;
+  background: color-mix(in srgb, var(--surface-elevated) 84%, transparent);
+}
+
+.markdown-body .insight-xml-diagnostic-key {
+  margin-bottom: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--surface-text-muted);
+}
+
+.markdown-body .insight-xml-diagnostic-value {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--surface-text);
+}
+
+.markdown-body .insight-xml-diagnostics {
+  margin: 0 !important;
+  padding: 0.95rem !important;
+  border-radius: 14px;
+  border: 1px solid var(--surface-border);
+  background: color-mix(in srgb, var(--surface-elevated) 86%, transparent) !important;
+  overflow-x: auto;
+}
+
+.markdown-body .insight-xml-diagnostics code {
+  background: transparent !important;
+  color: var(--surface-text-secondary) !important;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 增强的代码块样式 - 极致沉浸式与现代化适配 */
+.code-block-container {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(208, 215, 222, 0.5);
+  background-color: #f8f9fa;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+}
+
+.code-block-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+  border-color: rgba(9, 105, 218, 0.25);
+}
+
+html.dark .code-block-container {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #282c34; /* One Dark 背景色 */
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .code-block-container:hover {
+  border-color: rgba(97, 175, 239, 0.3); /* One Dark Blue */
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+html.dark .code-block-header {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.code-block-lang {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #6a737d;
+  text-transform: uppercase;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+html.dark .code-block-lang {
+  color: #abb2bf;
+}
+
+.code-copy-btn {
+  color: #6a737d !important;
+  opacity: 0.4;
+  transition: all 0.2s ease !important;
+  border-radius: 6px !important;
+}
+
+.code-copy-btn:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: scale(1.1);
+}
+
+html.dark .code-copy-btn {
+  color: #abb2bf !important;
+}
+
+html.dark .code-copy-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.code-block-content pre {
+  margin: 0 !important;
+  padding: 1.15rem !important;
+  background-color: transparent !important;
+  overflow-x: auto;
+}
+
+.code-block-content code {
+  padding: 0 !important;
+  background-color: transparent !important;
+  font-size: 0.92rem !important;
+  line-height: 1.65;
+  font-family: 'Fira Code', 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  tab-size: 4;
+}
+
+/* --- 语法高亮 (One Dark Pro Inspired) Token 适配 --- */
+
+/* 亮色模式 (GitHub Style) */
+html.light .hljs, html:not(.dark) .hljs { color: #24292e; }
+html.light .hljs-comment, html.light .hljs-quote { color: #6a737d; font-style: italic; }
+html.light .hljs-keyword, html.light .hljs-selector-tag { color: #d73a49; }
+html.light .hljs-string, html.light .hljs-doctag, html.light .hljs-regexp { color: #032f62; }
+html.light .hljs-title, html.light .hljs-section { color: #6f42c1; }
+html.light .hljs-variable, html.light .hljs-template-variable { color: #e36209; }
+html.light .hljs-function { color: #6f42c1; }
+html.light .hljs-attr, html.light .hljs-attribute { color: #005cc5; }
+html.light .hljs-number, html.light .hljs-literal { color: #005cc5; }
+html.light .hljs-params { color: #24292e; }
+html.light .hljs-built_in, html.light .hljs-bullet { color: #e36209; }
+
+/* 深色模式 (One Dark Ultimate) */
+html.dark .hljs { color: #abb2bf; }
+html.dark .hljs-comment, html.dark .hljs-quote { color: #5c6370; font-style: italic; }
+html.dark .hljs-keyword, html.dark .hljs-selector-tag { color: #c678dd; } /* Purple */
+html.dark .hljs-string, html.dark .hljs-doctag, html.dark .hljs-regexp { color: #98c379; } /* Green */
+html.dark .hljs-title, html.dark .hljs-section, html.dark .hljs-name { color: #e06c75; } /* Red (One Dark) */
+html.dark .hljs-variable, html.dark .hljs-template-variable { color: #d19a66; } /* Orange */
+html.dark .hljs-function, html.dark .hljs-title.function_ { color: #61afef; } /* Blue */
+html.dark .hljs-attr, html.dark .hljs-attribute { color: #d19a66; } /* Orange */
+html.dark .hljs-number, html.dark .hljs-literal { color: #d19a66; } /* Orange */
+html.dark .hljs-params { color: #abb2bf; }
+html.dark .hljs-built_in, html.dark .hljs-class { color: #e6c07b; } /* Yellow */
+html.dark .hljs-type, html.dark .hljs-meta { color: #61afef; } 
+html.dark .hljs-link, html.dark .hljs-symbol, html.dark .hljs-bullet, html.dark .hljs-addition { color: #98c379; }
+html.dark .hljs-deletion { color: #e06c75; }
+
+/* 自定义滚动条 - 更加隐形与 premium */
+.code-block-content pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.code-block-content pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-block-content pre::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+html.dark .code-block-content pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  background-clip: content-box;
+}
+
+.code-block-content pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.12);
+  background-clip: content-box;
+}
+
+html.dark .code-block-content pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+  background-clip: content-box;
+}

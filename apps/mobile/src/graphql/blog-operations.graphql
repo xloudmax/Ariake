@@ -1,0 +1,77 @@
+# Blog Post Queries
+query Posts($limit: Int, $offset: Int, $filter: PostFilterInput, $sort: PostSortInput) {
+  posts(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
+    ...BlogPostSummary
+  }
+}
+
+query Post($id: ID, $slug: String) {
+  post(id: $id, slug: $slug) {
+    ...BlogPostDetail
+  }
+}
+
+query PostVersions($postId: ID!) {
+  postVersions(postId: $postId) {
+    ...BlogPostVersion
+  }
+}
+
+query PopularPosts($limit: Int) {
+  getPopularPosts(limit: $limit) {
+    ...BlogPostSummary
+  }
+}
+
+query RecentPosts($limit: Int) {
+  getRecentPosts(limit: $limit) {
+    ...BlogPostSummary
+  }
+}
+
+query TrendingTags($limit: Int) {
+  getTrendingTags(limit: $limit)
+}
+
+# Blog Post Mutations
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    ...BlogPostDetail
+  }
+}
+
+mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {
+  updatePost(id: $id, input: $input) {
+    ...BlogPostDetail
+  }
+}
+
+mutation DeletePost($id: ID!) {
+  deletePost(id: $id) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation PublishPost($id: ID!) {
+  publishPost(id: $id) {
+    ...BlogPostDetail
+  }
+}
+
+mutation ArchivePost($id: ID!) {
+  archivePost(id: $id) {
+    ...BlogPostDetail
+  }
+}
+
+mutation LikePost($id: ID!) {
+  likePost(id: $id) {
+    ...BlogPostDetail
+  }
+}
+
+mutation UnlikePost($id: ID!) {
+  unlikePost(id: $id) {
+    ...BlogPostDetail
+  }
+}

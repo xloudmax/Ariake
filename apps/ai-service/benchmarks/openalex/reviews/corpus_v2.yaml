@@ -1,0 +1,111 @@
+version: corpus_v2
+packs:
+  thermal_regulation_passive_cooling:
+    notes: >
+      Prune broad desalination, water-sustainability, speculative, and non-mechanistic
+      materials papers so thermal remains grounded in biological heat regulation and passive cooling.
+    exclude_ids:
+      - https://openalex.org/W4413421236
+    exclude_title_patterns:
+      - desalination
+      - evaporator
+      - water and energy sustainability
+      - atmospheric stabilization
+      - martian
+      - shark spiral valve geometry
+      - maternal care
+      - social behavior
+      - open journal
+      - comment on
+      - reply on
+      - plant science
+      - climate warming
+      - rapid environmental change
+      - increased land use
+      - ringed seals
+      - methane fluxes
+      - carbon dioxide
+      - phlebotomus
+      - efficacy of
+      - fluxes from mounds
+      - metafabric
+    exclude_keywords:
+      - desalination
+      - water sustainability
+      - wastewater
+      - martian
+      - atmospheric stabilization
+      - phenolic resin
+      - solar steam
+      - maternal care
+      - neonat
+      - social behavior
+      - comment on
+      - reply on
+      - ringed seals
+      - climate warming
+      - increased land use
+      - carbon dioxide
+      - methane
+      - phlebotomus
+      - fungus-growing termites
+      - metafabric
+  swarm_distributed_optimization:
+    notes: >
+      Remove generic metaheuristic reviews and scheduling/UAV/WSN work so the pack stays
+      tied to biologically grounded routing, stigmergy, path formation, and resource allocation.
+    exclude_title_patterns:
+      - representative swarm intelligence algorithms
+      - flexible job shop scheduling
+      - northern goshawk optimization
+      - grasshopper optimization
+      - uav
+      - wireless sensor network
+      - economics of labour
+      - federated learning
+      - mobile edge
+      - edge intelligence
+      - dataset
+      - teaching
+      - traffic management
+      - admm
+      - matching theory
+      - post-scarcity
+      - mobile cloud computing
+      - green vehicle paths
+      - auction-based task allocation
+      - load balancing in leo
+      - wireless resource allocations
+      - traffic routing
+      - connected vehicles
+      - next generation network
+      - internet of things
+      - waste collection vehicle routing
+    exclude_keywords:
+      - metaheuristic
+      - scheduling
+      - job shop
+      - uav
+      - wireless sensor network
+      - wsn
+      - vehicular ad hoc network
+      - intrusion detection
+      - blockchain
+      - federated learning
+      - mobile edge
+      - edge intelligence
+      - teaching
+      - education
+      - post-scarcity
+      - mobile cloud
+      - admm
+      - matching theory
+      - real-time traffic management
+      - municipal solid waste
+      - graph neural networks
+      - wireless resource allocations
+      - connected vehicles
+      - next generation network
+      - internet of things
+      - vehicle routing problem
+      - waste collection

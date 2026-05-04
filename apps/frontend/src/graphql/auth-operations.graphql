@@ -1,0 +1,101 @@
+# Authentication Operations
+query Me {
+  me {
+    ...UserInfo
+    posts(limit: 5) {
+      id
+      title
+      slug
+      status
+      publishedAt
+    }
+    postsCount
+  }
+}
+
+query User($id: ID!) {
+  user(id: $id) {
+    ...UserInfo
+    posts(limit: 10) {
+      ...BlogPostSummary
+    }
+    postsCount
+  }
+}
+
+mutation Register($input: RegisterInput!) {
+  register(input: $input) {
+    ...AuthPayloadInfo
+  }
+}
+
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    ...AuthPayloadInfo
+  }
+}
+
+mutation EmailLogin($input: EmailLoginInput!) {
+  emailLogin(input: $input) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation VerifyEmailAndLogin($input: VerifyEmailInput!) {
+  verifyEmailAndLogin(input: $input) {
+    ...AuthPayloadInfo
+  }
+}
+
+mutation Logout {
+  logout {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation RefreshToken($refreshToken: String!) {
+  refreshToken(refreshToken: $refreshToken) {
+    ...AuthPayloadInfo
+  }
+}
+
+mutation SendVerificationCode($email: String!, $type: VerificationType!) {
+  sendVerificationCode(email: $email, type: $type) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation VerifyEmail($input: VerifyEmailInput!) {
+  verifyEmail(input: $input) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation RequestPasswordReset($input: RequestPasswordResetInput!) {
+  requestPasswordReset(input: $input) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation ConfirmPasswordReset($input: ConfirmPasswordResetInput!) {
+  confirmPasswordReset(input: $input) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
+    id
+    username
+    email
+    bio
+    avatar
+    updatedAt
+  }
+}
+
+mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
+  changePassword(currentPassword: $currentPassword, newPassword: $newPassword) {
+    ...GeneralResponseInfo
+  }
+}

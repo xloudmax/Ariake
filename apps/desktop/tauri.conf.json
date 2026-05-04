@@ -1,0 +1,45 @@
+{
+  "productName": "Ariake",
+  "version": "0.1.0",
+  "identifier": "cc.xloudmax.blog",
+  "build": {
+    "beforeDevCommand": "pnpm -C ../frontend dev",
+    "devUrl": "http://localhost:5173",
+    "beforeBuildCommand": "pnpm -C ../frontend build",
+    "frontendDist": "../frontend/dist"
+  },
+  "app": {
+    "macOSPrivateApi": false,
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "title": "Ariake",
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay",
+        "transparent": true,
+        "label": "main"
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": [
+      "c404-backend"
+    ]
+  }
+}

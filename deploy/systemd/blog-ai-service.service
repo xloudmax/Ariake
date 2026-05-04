@@ -1,0 +1,64 @@
+[Unit]
+Description=Ariake AI Service (FastAPI sidecar)
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=blog-ai
+Group=blog-ai
+WorkingDirectory=/var/www/blog/apps/ai-service
+
+# Run via uv so the project's pinned venv is used.
+# Install uv globally on the VPS: curl -LsSf https://astral.sh/uv/install.sh | sh
+Environment="PATH=/usr/local/bin:/usr/bin:/bin:/home/blog-ai/.local/bin"
+EnvironmentFile=-/var/www/blog/apps/ai-service/.env
+
+ExecStart=/home/blog-ai/.local/bin/uv run --no-dev python -m uvicorn main:app \
+    --host 127.0.0.1 --port 8000 \
+    --workers 2 --log-level info
+
+Restart=always
+RestartSec=15s
+TimeoutStopSec=30s
+
+# ----------------- Hardening -----------------
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+ProtectKernelLogs=true
+RestrictRealtime=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+LockPersonality=true
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Writable paths
+ReadWritePaths=/var/www/blog/apps/ai-service/logs
+ReadWritePaths=/var/www/blog/apps/ai-service/.venv
+ReadWritePaths=/var/www/blog/apps/ai-service
+ReadWritePaths=/tmp
+
+# ----------------- Logging -----------------
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=blog-ai-service
+
+# ----------------- Resource limits -----------------
+LimitNOFILE=65536
+LimitNPROC=4096
+MemoryMax=4G
+TasksMax=2048
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,129 @@
+# =============================================================================
+# Ariake · docker-compose.yml — local development stack.
+#
+# Brings up: pgvector PG → backend → ai-service → frontend.
+# Wire-compatible with the production layout (same service names, same ports).
+#
+# Usage:
+#   cp .env.example .env
+#   cp apps/backend/.env.example     apps/backend/.env       # edit
+#   cp apps/ai-service/.env.example  apps/ai-service/.env    # edit
+#   docker compose up -d --build
+#
+# Production override:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# =============================================================================
+
+services:
+
+  # ----------------------------------------------------------------------- DB
+  postgres:
+    image: pgvector/pgvector:${POSTGRES_VERSION:-pg16}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ${POSTGRES_USER:-blog}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB:       ${POSTGRES_DB:-blog}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./deploy/postgres/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - app-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-blog} -d $${POSTGRES_DB:-blog}"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    # PG is not published by default. To debug locally, override in your .env:
+    #   EXPOSE_PG=1
+    # and uncomment below — or run a separate `docker compose -f docker-compose.expose-pg.yml`.
+    # ports:
+    #   - "127.0.0.1:5432:5432"
+
+  # --------------------------------------------------------------- Go backend
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./apps/backend/.env
+    environment:
+      # Compose-level overrides for the dev defaults (ensure container reaches PG).
+      DB_TYPE: postgres
+      DATABASE_URL: postgres://${POSTGRES_USER:-blog}:${POSTGRES_PASSWORD:-changeme}@postgres:5432/${POSTGRES_DB:-blog}?sslmode=disable
+      POSTGRES_DSN: postgres://blog_graph:blog_graph_dev_password@postgres:5432/blog_graph?sslmode=disable
+      AI_SERVICE_URL: http://ai-service:8000
+      ALLOWED_ORIGINS: http://localhost:5173,http://localhost,http://127.0.0.1:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-net
+    volumes:
+      - backend-uploads:/app/uploads
+      - backend-logs:/app/logs
+    ports:
+      - "${BACKEND_BIND:-127.0.0.1:11451}:11451"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:11451/health/ping >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # ---------------------------------------------------------------- AI service
+  ai-service:
+    build:
+      context: ./apps/ai-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ./apps/ai-service/.env
+    environment:
+      GRAPH_DATABASE_URL: postgresql://blog_graph:blog_graph_dev_password@postgres:5432/blog_graph
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-net
+    ports:
+      - "${AI_SERVICE_BIND:-127.0.0.1:8000}:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request,sys; sys.exit(0 if urllib.request.urlopen(\"http://127.0.0.1:8000/health\", timeout=5).status==200 else 1)'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ------------------------------------------------------------------ Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+      args:
+        VITE_API_BASE_URL: ${FRONTEND_API_BASE_URL:-http://localhost:11451}
+    restart: unless-stopped
+    networks:
+      - app-net
+    ports:
+      - "${FRONTEND_BIND:-127.0.0.1:5173}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:80/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  pgdata:
+  backend-uploads:
+  backend-logs:

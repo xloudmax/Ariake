@@ -1,0 +1,343 @@
+packs:
+  - id: lightweight_structures
+    display_name: Lightweight Structures
+    primary_queries:
+      - lightweight structural mechanisms aerospace
+      - hierarchical low-density structural materials
+    expansion_queries:
+      - bird skull pneumatic structure
+      - honeycomb lattice lightweight composite
+      - nacre tough lightweight material
+    include_keywords:
+      - lightweight
+      - structural
+      - honeycomb
+      - bird skull
+      - bamboo
+      - nacre
+      - lattice
+      - stiffness
+    exclude_keywords:
+      - social network
+      - finance
+    benchmark_signals:
+      - aerospace
+      - high-strength
+      - low density
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: water_harvesting_desalination
+    display_name: Water Harvesting And Desalination
+    primary_queries:
+      - passive water harvesting mechanisms
+      - selective desalination membrane mechanisms
+    expansion_queries:
+      - cactus spine fog harvesting
+      - desert beetle water collection
+      - mangrove salt exclusion
+    include_keywords:
+      - water harvesting
+      - fog
+      - condensation
+      - desalination
+      - salt exclusion
+      - cactus
+      - beetle
+      - mangrove
+    exclude_keywords:
+      - cloud storage
+      - packet loss
+    benchmark_signals:
+      - clean drinking water
+      - arid
+      - desert
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: reversible_adhesion
+    display_name: Reversible Adhesion
+    primary_queries:
+      - reversible adhesion mechanisms engineering
+      - dry wet suction attachment mechanisms
+    expansion_queries:
+      - gecko dry adhesion
+      - mussel catechol adhesive
+      - octopus sucker reversible attachment
+    include_keywords:
+      - adhesion
+      - adhesive
+      - gecko
+      - mussel
+      - octopus
+      - reversible
+      - wet adhesion
+      - van der waals
+    exclude_keywords:
+      - user interface
+      - social attachment
+    benchmark_signals:
+      - climbing robot
+      - temporary adhesive
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: self_cleaning_antifouling
+    display_name: Self Cleaning And Anti Fouling
+    primary_queries:
+      - self-cleaning surface mechanisms
+      - anti-fouling surface engineering mechanisms
+    expansion_queries:
+      - lotus leaf superhydrophobic
+      - shark skin antifouling
+      - pitcher plant slippery surface
+    include_keywords:
+      - self-cleaning
+      - anti-fouling
+      - superhydrophobic
+      - lotus leaf
+      - slippery
+      - nanopillar
+      - dust
+      - solar panel
+    exclude_keywords:
+      - dataset cleaning
+      - antivirus
+    benchmark_signals:
+      - dusty environments
+      - solar panels
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: thermal_regulation_passive_cooling
+    display_name: Thermal Regulation And Passive Cooling
+    primary_queries:
+      - passive cooling termite mound ventilation
+      - thermal insulation porous fur structures
+      - saharan silver ant cooling mechanisms
+      - camel nasal heat exchange mechanisms
+      - toucan bill heat exchange mechanisms
+      - hornbill beak heat exchange mechanisms
+      - hummingbird heat dissipation mechanisms
+      - countercurrent heat exchange thermal regulation
+    expansion_queries:
+      - termite mound ventilation
+      - polar bear fur insulation
+      - saharan silver ant passive cooling
+      - camel nasal heat exchange
+      - toucan bill heat exchange
+      - hornbill beak heat exchange
+      - hummingbird heat dissipation
+      - pinniped blubber insulation
+      - countercurrent heat exchange mechanisms
+      - passive radiative cooling mechanisms
+    include_keywords:
+      - thermal regulation
+      - passive cooling
+      - heat transfer
+      - ventilation
+      - termite mound
+      - polar bear
+      - reflective hair
+      - insulation
+      - silver ant
+      - camel nasal
+      - toucan bill
+      - hornbill
+      - hummingbird
+      - blubber
+      - arctic insulation
+      - passive radiative cooling
+      - heat exchange
+      - countercurrent
+    exclude_keywords:
+      - software thermal throttling
+      - stock cooling
+      - architecture
+      - building
+      - biophilia
+      - urban design
+      - green roof
+      - vertical greening
+      - desalination
+      - evaporator
+      - water sustainability
+      - wastewater
+      - martian
+      - atmospheric stabilization
+      - resin
+      - climate warming
+      - maternal care
+      - social behavior
+      - ringed seals
+      - methane
+      - carbon dioxide
+    benchmark_signals:
+      - data centers
+      - passive ventilation
+      - heat management
+      - insulation
+      - thermal shielding
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: drag_reduction_flow_control
+    display_name: Drag Reduction And Flow Control
+    primary_queries:
+      - drag reduction surface mechanisms
+      - flow control via riblets compliant surfaces and beak geometries
+    expansion_queries:
+      - shark skin riblets drag reduction
+      - owl feather noise reduction
+      - kingfisher beak pressure wave
+    include_keywords:
+      - drag reduction
+      - flow control
+      - riblet
+      - shark skin
+      - kingfisher
+      - owl feather
+      - turbulence
+      - boundary layer
+    exclude_keywords:
+      - network flow
+      - traffic routing
+    benchmark_signals:
+      - friction reduction
+      - aerodynamic
+      - hydrodynamic
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: impact_protection_energy_dissipation
+    display_name: Impact Protection And Energy Dissipation
+    primary_queries:
+      - impact protection material mechanisms
+      - energy dissipation structural mechanisms
+    expansion_queries:
+      - woodpecker skull shock absorption
+      - pomelo peel impact resistance
+      - turtle shell protection
+    include_keywords:
+      - impact protection
+      - shock absorption
+      - energy dissipation
+      - woodpecker
+      - pomelo peel
+      - turtle shell
+      - helmet
+      - crashworthiness
+    exclude_keywords:
+      - emotional impact
+      - financial shock
+    benchmark_signals:
+      - impact helmet
+      - crash
+      - damping
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25
+
+  - id: swarm_distributed_optimization
+    display_name: Swarm And Distributed Optimization
+    primary_queries:
+      - stigmergic routing mechanisms
+      - ant colony routing distributed systems
+      - slime mold transport network engineering
+      - mycelium network resource allocation engineering
+      - decentralized collective adaptation mechanisms
+      - stigmergic coordination robot swarms
+      - ant nest architecture stigmergic coordination
+      - physarum transport network adaptive routing
+      - pheromone mediated coordination robot swarm
+      - collective construction stigmergy engineering
+    expansion_queries:
+      - ant colony optimization routing
+      - fungal mycelium resource allocation
+      - slime mold path formation
+      - stigmergic coordination
+      - decentralized allocation
+      - robot swarm stigmergy
+      - pheromone trail coordination
+      - ant nest construction
+      - physarum network routing
+      - mycelial transport network
+    include_keywords:
+      - swarm
+      - distributed optimization
+      - ant colony
+      - mycelium
+      - slime mold
+      - routing
+      - resource allocation
+      - collective behavior
+      - stigmergic
+      - decentralized
+      - collective adaptation
+      - path formation
+      - transport network
+      - pheromone trail
+      - ant nest
+      - robot swarm
+      - stigmergy
+    exclude_keywords:
+      - stock swarm
+      - social media
+      - wireless sensor network
+      - wsn
+      - vehicular ad hoc network
+      - blockchain
+      - intrusion detection
+      - metaheuristic
+      - review
+      - scheduling
+      - job shop
+      - uav
+      - feature selection
+      - image segmentation
+      - northern goshawk
+      - grasshopper optimization
+      - internet of things
+      - connected vehicles
+      - next generation network
+      - vehicle routing problem
+      - waste collection
+    benchmark_signals:
+      - traffic control
+      - packet routing
+      - decentralized
+      - coordination
+      - network resilience
+    year_range:
+      start: 2015
+      end: 2026
+    target_paper_count: 150
+    max_neighbor_count: 40
+    seed_count: 25

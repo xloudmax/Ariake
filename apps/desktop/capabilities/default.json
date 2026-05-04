@@ -1,0 +1,40 @@
+{
+  "$schema": "../gen/schemas/capability.json",
+  "identifier": "default",
+  "description": "Default capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:window:allow-start-dragging",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "os:default",
+    "shell:default",
+    "shell:allow-execute",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-is-registered",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "fs:allow-exists",
+    "fs:allow-desktop-read-recursive",
+    "fs:allow-desktop-write-recursive",
+    "fs:allow-document-read-recursive",
+    "fs:allow-document-write-recursive",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "args": [],
+          "sidecar": true,
+          "name": "c404-backend"
+        }
+      ]
+    }
+  ]
+}

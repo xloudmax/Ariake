@@ -1,0 +1,292 @@
+\documentclass[aspectratio=169, 11pt]{ctexbeamer}
+
+% Packages
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{listings}
+
+% Fix for Fandol font italic issue
+\xeCJKsetup{AutoFakeSlant}
+
+% Theme settings - Metropolis minimalist style
+\usetheme{metropolis}
+\usecolortheme{whale}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+% TikZ libraries for diagram
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, backgrounds, calc}
+
+% Define Global Academic Palette (Synchronized with Plots)
+\definecolor{colorVector}{HTML}{FF6B6B}
+\definecolor{colorGraph}{HTML}{4A90E2}
+\definecolor{colorDRR}{HTML}{50E3C2}
+\definecolor{colorHighlight}{HTML}{F39C12}
+
+% Global styling
+\setbeamerfont{block title}{shape=\normalfont, series=\bfseries}
+\setbeamerfont{title}{shape=\normalfont, series=\bfseries}
+
+% Fix Metropolis white-on-white issue on title/section pages
+\setbeamercolor{palette primary}{fg=white, bg=colorGraph}
+\setbeamercolor{section title}{fg=white}
+\setbeamercolor{alerted text}{fg=colorVector}
+
+% Listings style for SQL/Code snippets
+\lstset{
+    basicstyle=\tiny\ttfamily,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    backgroundcolor=\color{gray!5},
+    frame=single,
+    frameround=tttt
+}
+
+% Graphic path
+\graphicspath{{../../scripts/figures/academic/}}
+
+\title[全栈智能知识平台]{基于 Mechanism Trees 与 GraphRAG 的全栈智能知识平台}
+\subtitle{通过代理 RAG 弥合跨域创新中的语义鸿沟}
+\author{中期检查汇报}
+\institute{C404 研发团队}
+\date{\today}
+
+\begin{document}
+
+% Slide 1: Title Page
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Slide 2: Contents
+\begin{frame}{汇报目录}
+    \begin{multicols}{2}
+        \tableofcontents
+    \end{multicols}
+\end{frame}
+
+\section{研究背景与挑战}
+
+% Slide 3: Problem Definition
+\begin{frame}{跨域创新中的“语义鸿沟”}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \textbf{核心痛点}:
+            \begin{itemize}
+                \item 跨学科创新（如“银蚁” $\rightarrow$ “建筑降噪”）核心在于\textbf{底层功能机制}的提炼。
+                \item 传统 RAG 架构依赖关键词或密集向量匹配 \cite{microsoft2024graphrag}。
+            \end{itemize}
+            \vspace{0.3cm}
+            \textbf{主要挑战}:
+            \begin{itemize}
+                \item \textbf{空间消亡}: 不同领域词汇不重叠导致检索失效。
+                \item \textbf{信息过载}: 扁平检索令模型深陷海量噪音 \cite{yang2025overload}。
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{exampleblock}{学术结论}
+                \small 传统的扁平化 RAG 在处理“发散性”任务时，极易产生物理幻觉与逻辑断链 \cite{han2025rag_vs_graphrag}。
+            \end{exampleblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{技术架构与算法创新}
+
+% Slide 4: AI Core (DRR & RRF)
+\begin{frame}{核心算法：DRR 机制与 RRF 融合逻辑}
+    \begin{itemize}
+        \item \textbf{机制树 (Local Logic)} \cite{zhu2025taxonomy}: 递归分解 “How \& Why” 逻辑。
+        \item \textbf{RRF 混合搜索因子}:
+        \begin{itemize}
+            \item \textbf{Reciprocal Rank Fusion}: $Score = \sum_{r \in R} \frac{w_r}{k + rank_r}$ ($k=60$)。
+            \item \textbf{多维权重分配}: 向量 (1.0)、全文检索 (3.0)、模糊搜索 (0.3)。
+            \item \textbf{极致特化}: 对标题重叠词汇引入 \textbf{5.0x} 的原子级权重补偿。
+        \end{itemize}
+        \item \textbf{Leiden 社区发现}: 预计算海量文献中的“生物群落”摘要，提供全局协同背景。
+    \end{itemize}
+    \vspace{0.2cm}
+    \begin{block}{非对称多智能体脚手架}
+        \small \textbf{起草 (Flash-Lite)} + \textbf{审计 (Pro)}: 通过语义骨架传递 UUID，成本降低 70\%。
+    \end{block}
+\end{frame}
+
+% Slide 5: System Architecture & SSE
+\begin{frame}{全栈平台工程实现：高并发与低延迟}
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.6, transform shape,
+                node distance=1.1cm,
+                box/.style={rectangle, draw=black, thick, fill=white, minimum width=2.5cm, minimum height=0.7cm, align=center, rounded corners=2pt},
+                cloud/.style={ellipse, draw=black, thick, fill=gray!10, minimum width=2.5cm, minimum height=0.7cm, align=center},
+                arrow/.style={-Stealth, thick}
+            ]
+                \node (fe) [box, fill=blue!10] {React 19 前端 \\ (Apollo Client)};
+                \node (go) [box, fill=green!10, below=of fe] {Go 后端 (Gin) \\ (GraphQL Gateway)};
+                \node (py) [box, fill=yellow!10, right=1.5cm of go] {Python AI 引擎 \\ (FastAPI / gRPC)};
+                \node (db) [box, fill=red!10, below=of go] {PostgreSQL \\ (pgvector + CTE)};
+                \node (llm) [cloud, below=of py] {Gemini 3.1 \\ (Vertex AI Express)};
+                
+                \draw [arrow] (fe) -- node[right, font=\tiny] {SSE Stream} (go);
+                \draw [arrow] (go) -- (py);
+                \draw [arrow] (go) -- (db);
+                \draw [arrow] (py) -- (db);
+                \draw [arrow] (py) -- (llm);
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \textbf{工程亮点}:
+            \begin{itemize}
+                \item \textbf{语义缓存 (Semantic Caching)}: LRU 策略缓存 Embedding 与 LLM 响应，命中率提至 45\%。
+                \item \textbf{Go 异步脱敏}: 后端并行执行权限校验与节点脱敏。
+                \item \textbf{流式看板}: 前端利用 SSE 协议实时接收推演步骤，消除工程师对 AI 的“信任黑盒”。
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% Slide 6: Database Internal
+\begin{frame}[fragile]{数据库内核：基于递归 CTE 的图谱遍历}
+    \textbf{痛点}: 图谱多级跳跃 (Multi-hop) 的传统 IO 瓶颈。\\
+    \textbf{解法}: 将层级递归逻辑下沉至 PostgreSQL 内核执行。
+    \begin{lstlisting}[language=SQL]
+    WITH RECURSIVE graph_traversal AS (
+        SELECT id, 0 as hop_level, ARRAY[id] as path FROM knowledge_nodes
+        WHERE id IN (SEED_IDS)
+        UNION ALL
+        SELECT n.id, gt.hop_level + 1, gt.path || n.id FROM graph_traversal gt
+        JOIN knowledge_edges e ON gt.id = e.source_id OR gt.id = e.target_id
+        JOIN knowledge_nodes n ON n.id = CASE WHEN gt.id = e.source_id THEN e.target_id ELSE e.source_id END
+        WHERE gt.hop_level < :max_hops AND NOT n.id = ANY(gt.path)
+    )
+    SELECT DISTINCT ON (id) * FROM graph_traversal ORDER BY id, hop_level ASC;
+    \end{lstlisting}
+    \vspace{0.1cm}
+    \textbf{性能增益}: 对比传统应用层递归，响应速度实现 \textbf{10 倍以上} 提升。
+\end{frame}
+
+\section{评测体系与定标逻辑}
+
+% Slide 7: Experimental Logic
+\begin{frame}{实验设计逻辑：攻防一体与物理底线}
+    \begin{itemize}
+        \item \textbf{评分准则：几何平均 (GeoMean)}: 强制创新与落地性的平衡，$Score = (N \times C \times A)^{1/3}$。
+        \item \textbf{物理学否决 (Physics Veto)}: 
+        \begin{itemize}
+            \item \textbf{审计机制}: Pro 模型在输出前使用“物理一号指令”进行安全性锚定。
+            \item \textbf{因果断链拦截}: 任何违背热力学定律或虚构机制的方案直接重置为 0 分。
+        \end{itemize}
+    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{exampleblock}{“攻”：TaxoBench-CS}
+                验证“机制树”生成的\textbf{结构严谨性}。确保机制拆解符合科学分类学逻辑。
+            \end{exampleblock}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{alertblock}{“防”：MultiHop-RAG}
+                验证“超发散屏障”的\textbf{安全性}。在极端诱导下拒绝产生物理幻觉。
+            \end{alertblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{成果汇报与数据展示}
+
+% Slide 8: Ablation Results
+\begin{frame}{消融实验：架构的性能跃迁}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{01_Ablation_Score_Distribution.pdf}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{02_Ablation_Multidimensional_Radar.pdf}
+        \end{column}
+    \end{columns}
+    \vspace{0.2cm}
+    \small \textbf{数据亮点}: 均分从 \textbf{6.02} 升至 \textbf{7.51} (+24.7\%)。DRR 架构在复杂工业母题下的稳定性彻底消除了传统 RAG 的“幻觉毛刺”。
+\end{frame}
+
+% Slide 9: ECDF & Coverage
+\begin{frame}{严格统计占优 (Empirical CDF)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \includegraphics[width=\textwidth]{11_Ablation_Score_ECDF.pdf}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{高可行性覆盖率 (Score > 8.5)}:
+            \begin{itemize}
+                \item {\color{colorDRR}\textbf{DRR 任务覆盖率}}: \textbf{85\%}
+                \item {\color{colorVector}\textbf{Vector 任务覆盖率}}: \textbf{40\%}
+            \end{itemize}
+            \vspace{0.3cm}
+            \begin{exampleblock}{结论}
+                对于尖端工程课题，双重表征架构是目前唯一能稳定提供可验证、高可行性蓝图的解法。
+            \end{exampleblock}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% Slide 10: MultiHop & ResearcherBench
+\begin{frame}{安全性定标与科研能力表现}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.85\textwidth]{07_Physics_Veto_Success_Rate.pdf}\\
+            \small \textbf{MultiHop-RAG}: 100\% 物理幻觉拦截率
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.85\textwidth]{13_ResearcherBench_Domain_Expertise.pdf}\\
+            \small \textbf{DARS 评测}: 基础架构与推理能力达专家水准
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{总结与展望}
+
+% Slide 11: Case Study
+\begin{frame}{全栈平台落地案例：自修复结构复合材料}
+    \textbf{设计目标}: 自主感知并修复损伤的航空级材料方案。\\
+    \begin{itemize}
+        \item \textbf{后端处理}: PostgreSQL 递归 CTE 在 400ms 内提取出鲍鱼壳“错层剪切”拓扑。
+        \item \textbf{AI 决策}: 审计智能体通过物理否决机制确保“动态共价键”参数的可实现性。
+        \item \textbf{前端反馈}: 实时展示因果推演全过程，交付最终评分 \textbf{9.0 / 10.0}。
+    \end{itemize}
+    \vspace{0.1cm}
+    \begin{block}{核心价值}
+        将难以捉摸的跨视阈灵感转化为具备物理可行性的工程指令。
+    \end{block}
+\end{frame}
+
+% Slide 12: Vision
+\begin{frame}{未来计划：迈向无人化科研 (Auto Research)}
+    \begin{itemize}
+        \item \textbf{规模化扩容}: 导入 TechNet 400 万专利图谱节点 \cite{liu2025vision}。
+        \item \textbf{闭环验证}: 对接 \textbf{COMSOL / Ansys}接口，实现“构思 $\rightarrow$ 参数化 $\rightarrow$ 仿真”的无人自动流 \cite{miao2025paper2agent}。
+    \end{itemize}
+\end{frame}
+
+% Slide 13: References
+\begin{frame}[allowframebreaks]{参考文献}
+    \tiny
+    \bibliographystyle{plain}
+    \bibliography{references}
+\end{frame}
+
+% Slide 14: Q&A
+\begin{frame}
+    \centering
+    \Huge \textbf{谢谢聆听！}
+    \vspace{1cm}
+    
+    \Large \textbf{欢迎各位专家老师批评指正}
+\end{frame}
+
+\end{document}

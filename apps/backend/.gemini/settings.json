@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "idapro": {
+      "command": "uv",
+      "args": [
+        "run",
+        "-m",
+        "ida_pro_mcp"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-chrome-devtools"
+      ]
+    }
+  }
+}

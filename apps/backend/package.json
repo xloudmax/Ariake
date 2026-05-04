@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "go build -o bin/server main.go",
+    "generate": "go generate ./...",
+    "test": "go test ./...",
+    "dev": "go run main.go"
+  }
+}

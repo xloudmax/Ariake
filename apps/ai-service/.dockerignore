@@ -1,0 +1,54 @@
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Environment variables
+.env
+.env.local
+
+# Test coverage
+htmlcov/
+.coverage
+coverage.xml
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Cache files
+.embedding_cache.json
+.gemini_cache.json
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Benchmarks
+benchmarks/external/
+benchmarks/results/
+benchmarks/openalex/artifacts/
+
+# Documentation build
+doc/latex/*.aux
+doc/latex/*.log
+doc/latex/*.out
+doc/latex/*.pdf
+scripts/figures/

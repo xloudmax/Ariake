@@ -1,0 +1,79 @@
+# =============================================================================
+# Search Rules Configuration
+# Externalized from hardcoded dictionaries in search.py
+# =============================================================================
+
+# Biological terms blacklist for critic agent.
+# These terms must NOT appear in the final engineering output.
+bio_terms:
+  - eagle
+  - trpa1
+  - melanosome
+  - octopus
+  - spider
+  - gecko
+  - lotus
+  - shark
+  - butterfly
+  - beetle
+  - mussel
+  - woodpecker
+  - camel
+  - biological
+  - biomimetic
+  - "inspired by"
+
+# ---------- Critic validation: task-type detection ----------
+
+# Keywords that identify a query as a "control" task
+control_task_keywords:
+  - control
+  - algorithm
+  - threshold
+  - swarm
+  - icing
+
+# Keywords that MUST appear in the output for control tasks
+control_output_keywords:
+  - rule
+  - threshold
+  - state
+  - condition
+  - logic
+  - protocol
+  - law
+  - test
+  - shear
+  - durability
+  - 切换
+  - 阈值
+  - 状态
+  - 测试
+  - 剪切
+  - 规则
+  - 条件
+  - 回退
+  - 终止
+
+# Keywords that identify a query as a "material" task
+material_task_keywords:
+  - material
+  - surface
+  - coating
+  - emissivity
+  - anti-icing
+  - thermal
+
+# Keywords that MUST appear in the output for material tasks
+material_output_keywords:
+  - stack
+  - layer
+  - durability
+  - boundary
+  - protocol
+  - test
+  - 环境边界
+  - 耐久
+  - 验证协议
+  - 材料栈
+  - 层次结构

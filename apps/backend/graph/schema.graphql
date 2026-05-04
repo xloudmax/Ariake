@@ -1,0 +1,699 @@
+# --------------------
+# SCALARS & ENUMS
+# --------------------
+
+scalar Time
+scalar Upload
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum AccessLevel {
+  PUBLIC
+  PRIVATE
+  RESTRICTED
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum VerificationType {
+  REGISTER
+  LOGIN
+  RESET_PASSWORD
+}
+
+enum NotificationType {
+  COMMENT_REPLY  # 评论回复
+  POST_LIKE      # 文章点赞
+  POST_COMMENT   # 文章评论
+  SYSTEM         # 系统通知
+}
+
+# --------------------
+# CORE TYPES
+# --------------------
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  role: UserRole!
+  isVerified: Boolean!
+  isActive: Boolean!
+  avatar: String
+  bio: String
+  lastLoginAt: Time
+  emailVerifiedAt: Time
+  createdAt: Time!
+  updatedAt: Time!
+  
+  # 关联数据
+  posts(limit: Int = 10, offset: Int = 0): [BlogPost!]!
+  postsCount: Int!
+}
+
+type BlogPost {
+  id: ID!
+  authorId: ID!
+  title: String!
+  slug: String!
+  excerpt: String
+  content: String!
+  tags: [String!]!
+  categories: [String!]!
+  coverImageUrl: String
+  accessLevel: AccessLevel!
+  status: PostStatus!
+  publishedAt: Time
+  lastEditedAt: Time
+  createdAt: Time!
+  updatedAt: Time!
+  version: Int! # 乐观锁版本号
+  notionPageId: String # Notion Page ID, if synced from Notion
+  
+  # 关联数据
+  author: User!
+  versions: [BlogPostVersion!]!
+  stats: BlogPostStats!
+  isLiked: Boolean! # 当前用户是否点赞了该文章
+}
+
+type BlogPostVersion {
+  id: ID!
+  versionNum: Int!
+  title: String!
+  content: String!
+  changeLog: String
+  createdAt: Time!
+  createdBy: User!
+}
+
+type BlogPostStats {
+  id: ID!
+  viewCount: Int!
+  likeCount: Int!
+  shareCount: Int!
+  commentCount: Int!
+  lastViewedAt: Time
+  updatedAt: Time
+}
+
+type InviteCode {
+  id: ID!
+  code: String!
+  createdBy: User!
+  usedBy: User
+  usedAt: Time
+  expiresAt: Time!
+  maxUses: Int!
+  currentUses: Int!
+  isActive: Boolean!
+  description: String
+  createdAt: Time!
+}
+
+type AuthPayload {
+  token: String!
+  refreshToken: String!
+  user: User!
+  expiresAt: Time!
+}
+
+type GeneralResponse {
+  success: Boolean!
+  message: String
+  code: String
+}
+
+# 服务器统计信息（管理员专用）
+type ServerDashboard {
+  serverTime: Time!
+  hostname: String!
+  goVersion: String!
+  cpuCount: Int!
+  goroutines: Int!
+  memory: ServerMemoryStats!
+  uptime: String!
+  userCount: Int!
+  postCount: Int!
+  todayRegistrations: Int!
+  todayPosts: Int!
+}
+
+type ServerMemoryStats {
+  alloc: String!
+  totalAlloc: String!
+  sys: String!
+  heapAlloc: String!
+  heapSys: String!
+}
+
+type SearchResult {
+  posts: [BlogPost!]!
+  total: Int!
+  took: String! # 搜索耗时
+}
+
+type ImageUploadResponse {
+  imageUrl: String!
+  deleteUrl: String
+  filename: String!
+  size: Int!
+}
+
+# --------------------
+# INPUT TYPES
+# --------------------
+
+input RegisterInput {
+  username: String!
+  email: String!
+  password: String!
+  inviteCode: String
+}
+
+input LoginInput {
+  identifier: String! # 邮箱或用户名
+  password: String!
+  remember: Boolean = false
+}
+
+input EmailLoginInput {
+  email: String!
+}
+
+input VerifyEmailInput {
+  email: String!
+  code: String!
+  type: VerificationType!
+}
+
+input RequestPasswordResetInput {
+  email: String!
+}
+
+input ConfirmPasswordResetInput {
+  token: String!
+  newPassword: String!
+}
+
+input CreatePostInput {
+  title: String!
+  slug: String
+  excerpt: String
+  content: String!
+  tags: [String!]
+  categories: [String!]
+  coverImageUrl: String
+  accessLevel: AccessLevel = PUBLIC
+  status: PostStatus = DRAFT
+  publishAt: Time
+}
+
+input UpdatePostInput {
+  title: String
+  slug: String
+  excerpt: String
+  content: String
+  tags: [String!]
+  categories: [String!]
+  coverImageUrl: String
+  accessLevel: AccessLevel
+  status: PostStatus
+  version: Int # 乐观锁版本号
+  changeLog: String
+}
+
+input PostFilterInput {
+  authorId: ID
+  status: PostStatus
+  accessLevel: AccessLevel
+  tags: [String!]
+  categories: [String!]
+  search: String
+  dateFrom: Time
+  dateTo: Time
+}
+
+input PostSortInput {
+  field: String = "createdAt" # createdAt, updatedAt, publishedAt, viewCount, likeCount
+  order: String = "DESC" # ASC, DESC
+}
+
+input CreateInviteCodeInput {
+  expiresAt: Time!
+  maxUses: Int = 1
+  description: String
+}
+
+input AdminCreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+  role: UserRole = USER
+  isVerified: Boolean = false
+}
+
+input UpdateProfileInput {
+  username: String
+  bio: String
+  avatar: String
+}
+
+# 搜索输入类型
+input SearchInput {
+  query: String!
+  limit: Int = 10
+  offset: Int = 0
+  filters: SearchFilters
+  sortBy: String
+}
+
+# 搜索过滤条件
+input SearchFilters {
+  authorId: ID
+  tags: [String!]
+  categories: [String!]
+  dateFrom: Time
+  dateTo: Time
+  minViews: Int
+  minLikes: Int
+}
+
+# 搜索聚合信息
+type SearchFacets {
+  tags: [SearchFacetItem!]!
+  categories: [SearchFacetItem!]!
+  authors: [SearchFacetItem!]!
+}
+
+# 搜索聚合项
+type SearchFacetItem {
+  value: String!
+  count: Int!
+}
+
+# 增强搜索结果
+type EnhancedSearchResult {
+  posts: [BlogPost!]!
+  total: Int!
+  took: String!
+  suggestions: [String!]!
+  facets: SearchFacets!
+}
+
+# --------------------
+# QUERY TYPE
+# --------------------
+
+type Query {
+  # 生成机制树 (Insight)
+  generateMechanismTree(query: String!): MechanismNode!
+
+  # 用户查询
+  me: User # 获取当前登录用户（需要认证）
+  user(id: ID!): User # 获取指定用户（需要认证）
+  users(
+    limit: Int = 10
+    offset: Int = 0
+    search: String
+    role: UserRole
+    isVerified: Boolean
+  ): [User!]! # 用户列表（管理员）
+
+  # 文章查询
+  post(id: ID, slug: String): BlogPost # 获取指定文章
+  posts(
+    limit: Int = 10
+    offset: Int = 0
+    filter: PostFilterInput
+    sort: PostSortInput
+  ): [BlogPost!]! # 文章列表
+
+  postVersions(postId: ID!): [BlogPostVersion!]! # 文章版本历史
+
+  # 搜索
+  searchPosts(
+    query: String!
+    limit: Int = 10
+    offset: Int = 0
+  ): SearchResult! # 搜索文章
+
+  # 增强搜索
+  enhancedSearch(
+    input: SearchInput!
+  ): EnhancedSearchResult! # 增强搜索文章
+
+  # 搜索建议和统计
+  getSearchSuggestions(
+    query: String!
+    limit: Int = 10
+  ): [String!]! # 获取搜索建议
+
+  getTrendingSearches(
+    limit: Int = 10
+  ): [String!]! # 获取热门搜索词
+
+  getSearchStats: SearchStats! # 搜索统计信息
+
+  # 邀请码管理（管理员）
+  inviteCodes(
+    limit: Int = 10
+    offset: Int = 0
+    isActive: Boolean
+  ): [InviteCode!]!
+
+  # 系统管理（管理员）
+  serverDashboard: ServerDashboard!
+
+  # 统计信息
+  getPopularPosts(limit: Int = 10): [BlogPost!]!
+  getRecentPosts(limit: Int = 10): [BlogPost!]!
+  getTrendingTags(limit: Int = 20): [String!]!
+}
+
+# --------------------
+# MUTATION TYPE
+# --------------------
+
+type Mutation {
+  # 认证相关
+  register(input: RegisterInput!): AuthPayload!
+  login(input: LoginInput!): AuthPayload!
+  emailLogin(input: EmailLoginInput!): GeneralResponse! # 发送邮箱登录验证码
+  verifyEmailAndLogin(input: VerifyEmailInput!): AuthPayload! # 验证邮箱验证码并登录
+  logout(refreshToken: String): GeneralResponse! # 登出并撤销token
+  refreshToken(refreshToken: String!): AuthPayload! # 使用refresh token换取新的access token
+
+  # 邮箱验证
+  sendVerificationCode(email: String!, type: VerificationType!): GeneralResponse!
+  verifyEmail(input: VerifyEmailInput!): GeneralResponse!
+
+  # 密码重置
+  requestPasswordReset(input: RequestPasswordResetInput!): GeneralResponse!
+  confirmPasswordReset(input: ConfirmPasswordResetInput!): GeneralResponse!
+
+  # 用户管理
+  updateProfile(input: UpdateProfileInput!): User!
+  changePassword(
+    currentPassword: String!
+    newPassword: String!
+  ): GeneralResponse!
+
+  # 文章管理
+  createPost(input: CreatePostInput!): BlogPost!
+  updatePost(id: ID!, input: UpdatePostInput!): BlogPost!
+  deletePost(id: ID!): GeneralResponse!
+  publishPost(id: ID!): BlogPost!
+  archivePost(id: ID!): BlogPost!
+  likePost(id: ID!): BlogPost!
+  unlikePost(id: ID!): BlogPost!
+
+  # 文件上传
+  uploadImage(file: Upload!): ImageUploadResponse!
+
+  # 管理员操作
+  adminCreateUser(input: AdminCreateUserInput!): User!
+  adminUpdateUser(
+    id: ID!
+    username: String
+    email: String
+    role: UserRole
+    isVerified: Boolean
+    isActive: Boolean
+  ): User!
+  adminDeleteUser(id: ID!): GeneralResponse!
+
+  # 邀请码管理（管理员）
+  createInviteCode(input: CreateInviteCodeInput!): InviteCode!
+  deactivateInviteCode(id: ID!): GeneralResponse!
+
+  # 系统管理（管理员）
+  clearCache: GeneralResponse!
+  rebuildSearchIndex: GeneralResponse!
+  syncNotion(pageId: String): GeneralResponse!
+  updateGitHubConfig(repo: String!, token: String!): GeneralResponse!
+  deployToGitHubPages: GeneralResponse!
+}
+
+# 搜索统计信息类型
+type SearchStats {
+  totalSearches: Int!
+  popularQueries: [PopularQuery!]!
+  searchTrends: [SearchTrend!]!
+}
+
+# 热门查询类型
+type PopularQuery {
+  query: String!
+  count: Int!
+  lastSearched: Time!
+}
+
+# 搜索趋势类型
+type SearchTrend {
+  date: String!
+  searchCount: Int!
+  topQueries: [String!]!
+}
+
+# 评论类型
+type BlogPostComment {
+  id: ID!
+  content: String!
+  blogPost: BlogPost!
+  user: User!
+  parent: BlogPostComment
+  replies: [BlogPostComment!]!
+  isApproved: Boolean!
+  likeCount: Int!
+  reportCount: Int!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+# 评论输入类型
+input CreateCommentInput {
+  content: String!
+  blogPostId: ID!
+  parentId: ID
+}
+
+input UpdateCommentInput {
+  content: String!
+}
+
+# 评论过滤器
+input CommentFilterInput {
+  blogPostId: ID
+  userId: ID
+  isApproved: Boolean
+}
+
+# 评论排序
+input CommentSortInput {
+  field: String
+  order: String
+}
+
+extend type Query {
+  # 获取文章评论列表（管理员可不传blogPostId查看所有评论）
+  comments(
+    blogPostId: ID
+    limit: Int = 10
+    offset: Int = 0
+    filter: CommentFilterInput
+    sort: CommentSortInput
+  ): CommentResult!
+
+  # 获取单个评论
+  comment(id: ID!): BlogPostComment
+}
+
+extend type Mutation {
+  # 创建评论
+  createComment(input: CreateCommentInput!): BlogPostComment!
+
+  # 更新评论
+  updateComment(id: ID!, input: UpdateCommentInput!): BlogPostComment!
+
+  # 删除评论
+  deleteComment(id: ID!): GeneralResponse!
+
+  # 点赞评论
+  likeComment(id: ID!): BlogPostComment!
+
+  # 取消点赞评论
+  unlikeComment(id: ID!): BlogPostComment!
+
+  # 举报评论
+  reportComment(id: ID!): BlogPostComment!
+
+  # 审核评论（管理员）
+  approveComment(id: ID!): BlogPostComment!
+  rejectComment(id: ID!): BlogPostComment!
+}
+
+# 评论结果类型
+type CommentResult {
+  comments: [BlogPostComment!]!
+  total: Int!
+}
+
+# --------------------
+# TAG & CATEGORY MANAGEMENT
+# --------------------
+
+# 标签信息类型
+type TagInfo {
+  name: String!
+  count: Int!
+  posts: [BlogPost!]!
+}
+
+# 分类信息类型
+type CategoryInfo {
+  name: String!
+  count: Int!
+  posts: [BlogPost!]!
+}
+
+# 标签/分类统计信息
+type TagCategoryStats {
+  totalTags: Int!
+  totalCategories: Int!
+  tags: [TagInfo!]!
+  categories: [CategoryInfo!]!
+}
+
+# 批量更新标签输入
+input BatchUpdateTagsInput {
+  postIds: [ID!]!
+  tags: [String!]!
+  operation: TagOperation! # ADD or REPLACE
+}
+
+# 批量更新分类输入
+input BatchUpdateCategoriesInput {
+  postIds: [ID!]!
+  categories: [String!]!
+  operation: TagOperation! # ADD or REPLACE
+}
+
+# 标签操作类型
+enum TagOperation {
+  ADD      # 添加到现有标签
+  REPLACE  # 替换所有标签
+}
+
+extend type Query {
+  # 获取所有标签（带使用次数）
+  getTags(limit: Int, offset: Int, search: String): [TagInfo!]!
+
+  # 获取所有分类（带使用次数）
+  getCategories(limit: Int, offset: Int, search: String): [CategoryInfo!]!
+
+  # 获取标签和分类统计信息
+  getTagCategoryStats: TagCategoryStats!
+}
+
+extend type Mutation {
+  # 合并标签（将 sourceTag 的所有文章移到 targetTag）
+  mergeTags(sourceTag: String!, targetTag: String!): GeneralResponse!
+
+  # 合并分类
+  mergeCategories(sourceCategory: String!, targetCategory: String!): GeneralResponse!
+
+  # 批量更新文章标签
+  batchUpdateTags(input: BatchUpdateTagsInput!): GeneralResponse!
+
+  # 批量更新文章分类
+  batchUpdateCategories(input: BatchUpdateCategoriesInput!): GeneralResponse!
+
+  # 删除未使用的标签（不关联任何文章的标签）
+  deleteUnusedTags: GeneralResponse!
+
+  # 删除未使用的分类
+  deleteUnusedCategories: GeneralResponse!
+}
+
+# --------------------
+# NOTIFICATION SYSTEM
+# --------------------
+
+# 通知类型
+type Notification {
+  id: ID!
+  type: NotificationType!
+  title: String!
+  content: String!
+  relatedPost: BlogPost
+  relatedComment: BlogPostComment
+  relatedUser: User  # 触发通知的用户（如点赞者、评论者）
+  recipient: User!   # 通知接收者
+  isRead: Boolean!
+  createdAt: Time!
+}
+
+# Notion 页面信息
+type NotionPage {
+  id: String!
+  title: String!
+  lastEditedAt: Time!
+  url: String!
+}
+
+extend type Query {
+  # 获取 Notion 页面列表（管理员）
+  getNotionPages: [NotionPage!]!
+
+  # 获取当前用户的通知列表
+  notifications(limit: Int = 20, offset: Int = 0): [Notification!]!
+
+  # 获取未读通知数量
+  unreadNotificationCount: Int!
+
+  # 获取 GitHub 配置（管理员）
+  getGitHubConfig: GitHubConfig!
+}
+
+# GitHub 配置类型
+type GitHubConfig {
+  repo: String!
+  token: String!
+}
+
+extend type Mutation {
+  # 标记通知为已读
+  markNotificationAsRead(id: ID!): Notification!
+
+  # 标记所有通知为已读
+  markAllNotificationsAsRead: GeneralResponse!
+
+  # 删除通知
+  deleteNotification(id: ID!): GeneralResponse!
+
+  # 清空所有通知
+  clearAllNotifications: GeneralResponse!
+}
+
+# --------------------
+# MECHANISM TREE (INSIGHT)
+# --------------------
+
+type MechanismNode {
+  id: String!
+  title: String!
+  active_ingredient: String
+  children: [MechanismNode!]
+}
+
+
+
+

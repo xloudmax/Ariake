@@ -1,0 +1,67 @@
+[project]
+name = "ai-service"
+version = "0.1.0"
+description = "FastAPI sidecar for mechanism-tree generation, knowledge extraction, and GraphRAG search."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.31.0",
+    "fastapi>=0.128.1",
+    "leidenalg>=0.11.0",
+    "networkx>=3.6.1",
+    "openai>=2.16.0",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "python-igraph>=1.0.0",
+    "uvicorn>=0.40.0",
+    "google-cloud-aiplatform>=1.70.0",
+    "google-cloud-storage>=2.18.2",
+    "google-genai>=1.0.0",
+    "requests>=2.32.3",
+    "pyyaml>=6.0.2",
+    "pandas>=3.0.1",
+    "httpx>=0.28.1",
+    "numpy>=2.4.3",
+    "tenacity>=9.0.0",
+    "tqdm>=4.67.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+    "pytest-asyncio>=1.3.0",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.15.9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--cov=ai_service",
+    "--cov-report=term-missing",
+    "-v",
+]
+
+[tool.coverage.run]
+source = ["ai_service"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/scripts/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]
+precision = 2
+show_missing = true

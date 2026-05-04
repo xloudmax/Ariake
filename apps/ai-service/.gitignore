@@ -1,0 +1,34 @@
+# Cache and runtime data
+.env
+.embedding_cache.json
+.gemini_cache.json
+.python-version
+__pycache__/
+.venv/
+.DS_Store
+
+# Logs
+logs/
+*.log
+*.txt
+!README.md
+!GEMINI.md
+
+# Test coverage
+htmlcov/
+.coverage
+coverage.xml
+.pytest_cache/
+
+# Benchmarks
+benchmarks/external/
+benchmarks/results/
+benchmarks/openalex/artifacts/
+benchmarks/runs/
+
+# Generated figures and latex build outputs
+scripts/figures/
+doc/latex/*.aux
+doc/latex/*.log
+doc/latex/*.out
+doc/latex/*.pdf

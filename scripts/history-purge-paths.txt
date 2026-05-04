@@ -1,0 +1,52 @@
+# Paths to drop from every commit on every branch via:
+#   git filter-repo --invert-paths --paths-from-file scripts/history-purge-paths.txt
+#
+# Globs and exact paths supported. One per line. `#` comments are stripped.
+# These are evaluated against historical paths — if a file was ever at the
+# given path in any commit, that blob is removed.
+
+# ---- Secrets ----
+.env
+apps/backend/.env
+apps/backend/.env.production
+apps/backend/.env.local
+apps/ai-service/.env
+apps/frontend/.env.production
+apps/frontend/.env.local
+
+# ---- Bundled DB / WAL / SHM ----
+glob:**/*.db
+glob:**/*.db-shm
+glob:**/*.db-wal
+glob:**/*.sqlite
+glob:**/*.sqlite3
+blog_platform.db
+apps/backend/blog_platform.db
+apps/desktop/blog_platform.db
+
+# ---- Compiled backends / sidecars ----
+apps/backend/main
+glob:apps/desktop/c404-backend-*
+glob:apps/desktop/blog-backend-*
+
+# ---- Test binaries ----
+glob:**/tests/*.test
+apps/backend/tests/tests.test
+
+# ---- Coverage / cache artifacts ----
+glob:**/coverage.out
+glob:**/coverage.xml
+glob:**/htmlcov/
+glob:**/.coverage
+.turbo/
+
+# ---- AI service caches ----
+apps/ai-service/.gemini_cache.json
+glob:apps/ai-service/.gemini_cache.json.bak_*
+apps/ai-service/.embedding_cache.json
+
+# ---- Vendored archives ----
+glob:overleaf_upload/*.zip
+ai_service/.env
+backend/.env
+backend/blog_platform.db

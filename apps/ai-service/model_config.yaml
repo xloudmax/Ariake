@@ -1,0 +1,162 @@
+# C404 Model Configuration
+# This file controls which models are used for different AI tasks
+
+# --- Mechanism Tree Generation ---
+# High-performance model recommended for complex structural reasoning
+mechanism_tree:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 1.0
+  max_tokens: 8192
+
+# --- Knowledge Graph Extraction ---
+# Cost-effective model for high-volume entity extraction
+knowledge_extraction:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.1 # Low temperature for consistency
+  max_tokens: 4096
+
+# --- Community Summarization ---
+# Reasoning-heavy model for summarizing graph communities
+community_summary:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.7
+  max_tokens: 2048
+
+# --- Embeddings ---
+# Specific model for vector generation
+embeddings:
+  model_id: "text-embedding-004"
+
+# --- Intent Router ---
+# Lightweight model to classify queries and determine retrieval weights
+intent_router:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.0 # Strict classification
+  max_tokens: 1024
+
+# --- Critic / Reviewer Agent ---
+# High-reasoning model for G-Eval alignment and logic checking
+critic_agent:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.3
+  max_tokens: 4096
+
+# --- Global Search ---
+# Reasoning model for synthesizing answers from multiple communities
+global_search:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.7
+  max_tokens: 4000
+  default_weights:
+    vector: 0.7
+    fts: 0.3
+
+# --- Vector Search Drafting ---
+vector_search:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.2
+  max_tokens: 2048
+
+# --- Relevance Filter ---
+relevance_check:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.0
+  max_tokens: 256
+
+# --- Stepping-Stone Query Rewrite ---
+stepping_stone:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.1
+  max_tokens: 512
+
+# --- Constraint Extraction (retrieval.py) ---
+# Extracts hardest physical/engineering constraints from a query to augment retrieval.
+constraint_extraction:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.1
+  max_tokens: 512
+
+# --- Constraint Audit (critic.py) ---
+# JSON verdict: does the answer address the hardest requirement in the query?
+constraint_audit:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.0
+  max_tokens: 512
+
+# --- Physics Audit (critic.py) ---
+# JSON verdict: does the answer violate fundamental physics laws?
+physics_audit:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.0
+  max_tokens: 1024
+
+# --- Parameter Grounding (critic.py) ---
+# Enriches a structurally-valid answer with concrete engineering parameters.
+# Reasoning-heavy: uses pro tier.
+parameter_grounding:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.2
+  max_tokens: 4096
+
+# --- Retrieval Alignment (search/pipeline.py) ---
+# Rates community-query alignment as a single float in [0,1].
+retrieval_alignment:
+  model_id: "gemini-3.1-flash-lite-preview"
+  temperature: 0.0
+  max_tokens: 64
+
+# --- Engineering Delivery (search/delivery.py) ---
+# Densifies the structured answer with engineering specifics.
+# Reasoning-heavy: uses pro tier.
+engineering_delivery:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.3
+  max_tokens: 4000
+
+# --- Benchmark Judge (scripts/ via script_support.benchmark_eval_model) ---
+# Default model for benchmark evaluation / judging when no dataset-specific
+# env var (PAPER_CORE_EVAL_MODEL, BLIND_AB_EVAL_MODEL, BENCHMARK_EVAL_MODEL,
+# LLM_MODEL) is set and the caller does not pass an explicit ``default=``.
+benchmark_judge:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.1
+  max_tokens: 4096
+
+# --- Benchmark Judge Strict (run_paper_core_zero_shot.py, run_advanced_ablation.py) ---
+# Same model as benchmark_judge but temperature=0 for the strict JSON-scoring paths
+# used inside run_paper_core_zero_shot.evaluate_output and run_advanced_ablation.
+benchmark_judge_strict:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.0
+  max_tokens: 4096
+
+# --- Zero-Shot Generation (scripts/run_paper_core_zero_shot.py) ---
+# Used when running benchmark queries WITHOUT the graph pipeline to collect
+# a zero-shot baseline. Higher temperature for genuine generation.
+zero_shot_generation:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.7
+  max_tokens: 4000
+
+# --- Blind A/B Generation (scripts/generate_blind_ab_answers.py) ---
+# Produces "expert" zero-shot answers for blind A/B human evaluation. Kept at
+# low temperature to stay close to a deterministic expert response.
+blind_ab_generation:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.1
+  max_tokens: 4096
+
+# --- Dataset Expansion (scripts/tools/expand_datasets.py) ---
+# Synthesizes additional evaluation items; pro for quality.
+dataset_expansion:
+  model_id: "gemini-3.1-pro-preview"
+  temperature: 0.2
+  max_tokens: 4096
+
+
+# --- Global Settings ---
+default:
+  model_id: "gemini-3.1-flash-lite-preview"
+  location: "us-central1"
+  project_id: "project-830053bb-738a-4041-96a"
+  thinking_level: "LOW"

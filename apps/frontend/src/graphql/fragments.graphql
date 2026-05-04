@@ -1,0 +1,167 @@
+# GraphQL fragments for reuse across operations
+
+# User Fragment
+fragment UserInfo on User {
+  id
+  username
+  email
+  role
+  isVerified
+  isActive
+  avatar
+  bio
+  lastLoginAt
+  emailVerifiedAt
+  createdAt
+  updatedAt
+}
+
+fragment UserSummary on User {
+  id
+  username
+  avatar
+  role
+}
+
+# BlogPost Fragments
+fragment BlogPostInfo on BlogPost {
+  id
+  title
+  slug
+  excerpt
+  content
+  tags
+  categories
+  coverImageUrl
+  accessLevel
+  status
+  publishedAt
+  lastEditedAt
+  createdAt
+  updatedAt
+  version
+  isLiked
+  notionPageId
+}
+
+fragment BlogPostSummary on BlogPost {
+  id
+  title
+  slug
+  excerpt
+  tags
+  categories
+  coverImageUrl
+  status
+  publishedAt
+  createdAt
+  isLiked
+  author {
+    ...UserSummary
+  }
+  stats {
+    ...BlogPostStats
+  }
+}
+
+fragment BlogPostDetail on BlogPost {
+  ...BlogPostInfo
+  author {
+    ...UserInfo
+  }
+  stats {
+    ...BlogPostStats
+  }
+  versions {
+    id
+    versionNum
+    title
+    content
+    changeLog
+    createdAt
+    createdBy {
+      ...UserSummary
+    }
+  }
+}
+
+# BlogPost Stats Fragment
+fragment BlogPostStats on BlogPostStats {
+  id
+  viewCount
+  likeCount
+  shareCount
+  commentCount
+  lastViewedAt
+  updatedAt
+}
+
+# BlogPost Version Fragment
+fragment BlogPostVersion on BlogPostVersion {
+  id
+  versionNum
+  title
+  content
+  changeLog
+  createdAt
+  createdBy {
+    ...UserSummary
+  }
+}
+
+# Invite Code Fragment
+fragment InviteCodeInfo on InviteCode {
+  id
+  code
+  createdBy {
+    ...UserSummary
+  }
+  usedBy {
+    ...UserSummary
+  }
+  usedAt
+  expiresAt
+  maxUses
+  currentUses
+  isActive
+  description
+  createdAt
+}
+
+# Auth Payload Fragment
+fragment AuthPayloadInfo on AuthPayload {
+  token
+  refreshToken
+  expiresAt
+  user {
+    ...UserInfo
+  }
+}
+
+# Server Dashboard Fragment
+fragment ServerDashboardInfo on ServerDashboard {
+  serverTime
+  hostname
+  goVersion
+  cpuCount
+  goroutines
+  memory {
+    alloc
+    totalAlloc
+    sys
+    heapAlloc
+    heapSys
+  }
+  uptime
+  userCount
+  postCount
+  todayRegistrations
+  todayPosts
+}
+
+# General Response Fragment
+fragment GeneralResponseInfo on GeneralResponse {
+  success
+  message
+  code
+}

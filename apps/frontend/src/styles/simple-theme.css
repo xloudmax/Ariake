@@ -1,0 +1,287 @@
+/* 简洁主题 - 只保留黑白灰配色 */
+
+:root {
+  /* 主色 - 简洁的蓝色作为唯一强调色 */
+  --color-primary: #3b82f6;
+  --color-primary-soft: #dbeafe;
+
+  /* 灰度系统 - 亮色模式 */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-elevated: rgba(255, 255, 255, 0.82);
+
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+
+  --color-border: #e5e7eb;
+  --color-border-secondary: #d1d5db;
+
+  /* 阴影 */
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  /* 玻璃拟态变量 - 亮色 */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: blur(16px);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+
+  /* 统一语义层 */
+  --surface-base: #ffffff;
+  --surface-container: rgba(255, 255, 255, 0.72);
+  --surface-elevated: rgba(255, 255, 255, 0.82);
+  --surface-elevated-glass: rgba(255, 255, 255, 0.84);
+  --surface-border: rgba(148, 163, 184, 0.22);
+  --surface-text: #111827;
+  --surface-text-secondary: #6b7280;
+  --surface-text-tertiary: #9ca3af;
+
+  --glass-neutral-surface: rgba(255, 255, 255, 0.58);
+  --glass-neutral-border: rgba(255, 255, 255, 0.35);
+  --glass-neutral-text: #0f172a;
+  --glass-brand-surface: rgba(59, 130, 246, 0.14);
+  --glass-brand-border: rgba(96, 165, 250, 0.28);
+  --glass-brand-text: #1d4ed8;
+  --glass-inverse-surface: rgba(15, 23, 42, 0.72);
+  --glass-inverse-border: rgba(15, 23, 42, 0.18);
+  --glass-inverse-text: #f8fafc;
+}
+
+/* 暗色模式 */
+/* 暗色模式 - Premium Slate */
+html.dark {
+  --color-primary: #60a5fa; /* Blue 400 */
+  --color-primary-soft: rgba(96, 165, 250, 0.18);
+
+  --color-bg: #0f172a; /* Slate 900 - Rich Dark Background */
+  --color-bg-secondary: #1e293b; /* Slate 800 - Surface */
+  --color-bg-tertiary: #334155; /* Slate 700 - Code blocks/Inputs */
+  --color-bg-elevated: rgba(15, 23, 42, 0.82);
+
+  --color-text: #f8fafc; /* Slate 50 */
+  --color-text-secondary: #cbd5e1; /* Slate 300 */
+  --color-text-tertiary: #94a3b8; /* Slate 400 */
+
+  --color-border: #334155; /* Slate 700 */
+  --color-border-secondary: #475569; /* Slate 600 */
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+
+  /* 玻璃拟态变量 - 暗色极简 (Ultra Glass) */
+  --glass-bg: rgba(30, 41, 59, 0.6); /* Reduced opacity for more transparency */
+  --glass-border: rgba(255, 255, 255, 0.08); /* Subtle inner glow */
+  --glass-blur: blur(20px); /* Increased blur for premium feel */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+
+  --surface-base: #0f172a;
+  --surface-container: rgba(15, 23, 42, 0.7);
+  --surface-elevated: rgba(15, 23, 42, 0.82);
+  --surface-elevated-glass: rgba(15, 23, 42, 0.88);
+  --surface-border: rgba(148, 163, 184, 0.18);
+  --surface-text: #f8fafc;
+  --surface-text-secondary: #cbd5e1;
+  --surface-text-tertiary: #94a3b8;
+
+  --glass-neutral-surface: rgba(15, 23, 42, 0.52);
+  --glass-neutral-border: rgba(255, 255, 255, 0.12);
+  --glass-neutral-text: #f8fafc;
+  --glass-brand-surface: rgba(59, 130, 246, 0.18);
+  --glass-brand-border: rgba(96, 165, 250, 0.24);
+  --glass-brand-text: #dbeafe;
+  --glass-inverse-surface: rgba(2, 6, 23, 0.78);
+  --glass-inverse-border: rgba(255, 255, 255, 0.16);
+  --glass-inverse-text: #f8fafc;
+}
+
+/* 全局应用 */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Ant Design 覆盖 - 玻璃拟态 */
+.ant-layout {
+  background: transparent !important; /* 让背景透出来 */
+}
+
+.ant-layout-sider {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border) !important;
+}
+
+.ant-layout-header {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* 卡片玻璃化 */
+.ant-card {
+  background: var(--surface-container) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--surface-border) !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.ant-menu {
+  background: transparent !important;
+  color: var(--color-text) !important;
+}
+
+.ant-menu-item {
+  color: var(--color-text-secondary) !important;
+}
+
+.ant-menu-item-selected {
+  color: var(--color-primary) !important;
+  background: rgba(59, 130, 246, 0.1) !important; /* 选中态微弱背景 */
+}
+
+.ant-menu-item:hover {
+  color: var(--color-text) !important;
+}
+
+.ant-btn-default {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+  color: var(--color-text) !important;
+}
+
+.ant-btn-default:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.ant-btn-primary {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  /* Primary 也可以加一点点透明度吗？既然用户喜欢全玻璃，保持实色可能更好对比 */
+}
+
+/* 输入框玻璃化 */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector {
+  background: rgba(255, 255, 255, 0.4) !important; /* 比卡片更透 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: var(--glass-border) !important;
+  color: var(--color-text) !important;
+}
+
+.ant-input:focus,
+.ant-input-affix-wrapper:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* 强制搜索框透明 (App Store Style) */
+.glass-search-input.ant-input {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 暗色模式下组件背景适配 */
+html.dark .ant-input,
+html.dark .ant-input-affix-wrapper,
+html.dark .ant-select-selector {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .ant-input:focus,
+html.dark .ant-input-affix-wrapper:focus,
+html.dark .ant-select-focused .ant-select-selector {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 弹窗玻璃化 */
+.ant-modal-content {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+.ant-modal-footer {
+  background: transparent !important;
+  border-top: 1px solid var(--glass-border) !important;
+}
+
+/* 下拉菜单玻璃化 */
+.ant-dropdown-menu {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.ant-dropdown-menu-item {
+  color: var(--color-text) !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: rgba(125, 125, 125, 0.1) !important;
+}
+
+/* 表格 */
+.ant-table {
+  background: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
+.ant-table-thead > tr > th {
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-color: var(--color-border) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: var(--color-bg-secondary) !important;
+}
+
+/* 移除所有渐变 */
+.bg-gradient-primary,
+.notion-btn,
+.optimized-button-primary {
+
+  background: var(--color-primary) !important;
+}
+
+/* Tabs 玻璃化适配 */
+.ant-tabs-tab {
+  color: var(--color-text-secondary) !important;
+}
+
+.ant-tabs-tab:hover {
+  color: var(--color-text) !important;
+}
+
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--color-primary) !important;
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+}
+
+.ant-tabs-ink-bar {
+  background: var(--color-primary) !important;
+}

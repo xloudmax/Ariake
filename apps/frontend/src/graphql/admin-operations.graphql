@@ -1,0 +1,143 @@
+# Admin Operations
+query Users($limit: Int, $offset: Int, $search: String, $role: UserRole, $isVerified: Boolean) {
+  users(limit: $limit, offset: $offset, search: $search, role: $role, isVerified: $isVerified) {
+    id
+    username
+    email
+    role
+    isVerified
+    isActive
+    avatar
+    bio
+    lastLoginAt
+    createdAt
+    postsCount
+  }
+}
+
+query ServerDashboard {
+  serverDashboard {
+    ...ServerDashboardInfo
+  }
+}
+
+query InviteCodes($limit: Int, $offset: Int, $isActive: Boolean) {
+  inviteCodes(limit: $limit, offset: $offset, isActive: $isActive) {
+    ...InviteCodeInfo
+  }
+}
+
+# Admin Comments Management
+query AllComments($limit: Int, $offset: Int, $filter: CommentFilterInput, $sort: CommentSortInput) {
+  comments(limit: $limit, offset: $offset, filter: $filter, sort: $sort) {
+    comments {
+      id
+      content
+      isApproved
+      likeCount
+      reportCount
+      createdAt
+      updatedAt
+      user {
+        id
+        username
+        avatar
+      }
+      blogPost {
+        id
+        title
+        slug
+      }
+    }
+    total
+  }
+}
+
+mutation AdminCreateUser($input: AdminCreateUserInput!) {
+  adminCreateUser(input: $input) {
+    id
+    username
+    email
+    role
+    isVerified
+    isActive
+    createdAt
+  }
+}
+
+mutation AdminUpdateUser($id: ID!, $username: String, $email: String, $role: UserRole, $isVerified: Boolean, $isActive: Boolean) {
+  adminUpdateUser(id: $id, username: $username, email: $email, role: $role, isVerified: $isVerified, isActive: $isActive) {
+    id
+    username
+    email
+    role
+    isVerified
+    isActive
+    updatedAt
+  }
+}
+
+mutation AdminDeleteUser($id: ID!) {
+  adminDeleteUser(id: $id) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation CreateInviteCode($input: CreateInviteCodeInput!) {
+  createInviteCode(input: $input) {
+    ...InviteCodeInfo
+  }
+}
+
+mutation DeactivateInviteCode($id: ID!) {
+  deactivateInviteCode(id: $id) {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation ClearCache {
+  clearCache {
+    ...GeneralResponseInfo
+  }
+}
+
+mutation RebuildSearchIndex {
+  rebuildSearchIndex {
+    ...GeneralResponseInfo
+  }
+}
+
+# Comment Management Mutations
+mutation ApproveComment($id: ID!) {
+  approveComment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}
+
+mutation RejectComment($id: ID!) {
+  rejectComment(id: $id) {
+    id
+    content
+    isApproved
+    likeCount
+    reportCount
+    createdAt
+    updatedAt
+    user {
+      id
+      username
+      avatar
+    }
+  }
+}

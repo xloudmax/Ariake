@@ -1,0 +1,145 @@
+/* PostDetailPage.css - 确保文章详情页在昼夜模式切换时的样式一致性 */
+
+/* 基础样式 - 增加特异性以覆盖其他样式 */
+.post-detail-page .post-detail-card,
+.post-detail-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  transition: all 0.3s ease;
+}
+
+/* 深色模式下的样式 - 增加特异性 */
+html.dark .post-detail-page .post-detail-card,
+html.dark .post-detail-card,
+.dark .post-detail-page .post-detail-card,
+.dark .post-detail-card {
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  color: #f9fafb;
+}
+
+/* Prose样式适配 */
+.prose-light {
+  color: #1f2937;
+}
+
+.prose-light h1, 
+.prose-light h2, 
+.prose-light h3, 
+.prose-light h4, 
+.prose-light h5, 
+.prose-light h6 {
+  color: #111827;
+}
+
+.prose-light p {
+  color: #374151;
+}
+
+.prose-light blockquote {
+  color: #6b7280;
+  border-left-color: #d1d5db;
+}
+
+.prose-light code {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.prose-light pre {
+  background-color: #f9fafb;
+}
+
+/* 深色模式的prose样式 */
+.prose-dark,
+.prose-invert {
+  color: #f9fafb;
+}
+
+.prose-dark h1, 
+.prose-dark h2, 
+.prose-dark h3, 
+.prose-dark h4, 
+.prose-dark h5, 
+.prose-dark h6,
+.prose-invert h1, 
+.prose-invert h2, 
+.prose-invert h3, 
+.prose-invert h4, 
+.prose-invert h5, 
+.prose-invert h6 {
+  color: #ffffff;
+}
+
+.prose-dark p,
+.prose-invert p {
+  color: #d1d5db;
+}
+
+.prose-dark blockquote,
+.prose-invert blockquote {
+  color: #9ca3af;
+  border-left-color: #4b5563;
+}
+
+.prose-dark code,
+.prose-invert code {
+  background-color: #374151;
+  color: #f9fafb;
+}
+
+.prose-dark pre,
+.prose-invert pre {
+  background-color: #1f2937;
+}
+
+.prose-dark a,
+.prose-invert a {
+  color: #60a5fa;
+}
+
+.prose-dark strong,
+.prose-invert strong {
+  color: #ffffff;
+}
+
+/* 主题切换按钮样式 */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ant Design组件在深色模式下的覆盖样式 - 增加特异性 */
+/* 亮色模式样式 */
+.post-detail-page .ant-card,
+html.light .post-detail-page .ant-card,
+html:not(.dark) .post-detail-page .ant-card {
+  background-color: #ffffff;
+  border-color: #e5e7eb;
+}
+
+.post-detail-page .ant-typography,
+html.light .post-detail-page .ant-typography,
+html:not(.dark) .post-detail-page .ant-typography {
+  color: #1f2937;
+}
+
+/* 深色模式样式 */
+html.dark .post-detail-page .ant-card,
+.dark .post-detail-page .ant-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+html.dark .post-detail-page .ant-typography,
+.dark .post-detail-page .ant-typography {
+  color: #f9fafb;
+}
+
+.post-detail-page .ant-divider,
+html.dark .post-detail-page .ant-divider,
+.dark .post-detail-page .ant-divider {
+  border-color: #374151;
+}
